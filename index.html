@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Step · prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C1F1D;--muted:#4A504B;--line:#DCDED9;--line2:#C9CCC6;--bg:#F4F5F3;--card:#FFFFFF;--acc:#0F6E6A;--accDark:#0B4D4A;--accTint:#E8F4F3;--accLine:#B9DAD7;--warnBg:#FDF3EA;--warnLine:#F0CFAE;--warnInk:#5E2C05;--warnHead:#8A3F06}
+*{box-sizing:border-box}
+html,body{margin:0;background:#E7E9E5;color:var(--ink);font-family:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.topbar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 16px;background:#FFFFFF;border-bottom:1px solid var(--line)}
+.seg{display:flex;border:1px solid var(--line2);border-radius:22px;overflow:hidden}
+.seg button{min-height:40px;padding:0 16px;border:none;background:#FFFFFF;font-size:14px}
+.seg button.on{background:var(--acc);color:#FFFFFF;font-weight:600}
+.pill-btn{min-height:40px;min-width:56px;border:1px solid var(--line2);border-radius:20px;background:#FFFFFF;font-size:14px;font-weight:500}
+.stage{display:flex;justify-content:center;padding:24px 12px 40px}
+.phone{width:390px;height:844px;border-radius:36px;border:10px solid #1F2321;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+@media (max-width:520px){.stage{padding:0}.phone{width:100%;height:calc(100dvh - 61px);border:none;border-radius:0;box-shadow:none}}
+.ahead{height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#FFFFFF;border-bottom:1px solid var(--line)}
+.ahead .side{width:90px;display:flex}
+.ahead .side.end{justify-content:flex-end}
+.back{min-height:44px;display:flex;align-items:center;gap:4px;border:none;background:transparent;font-size:15px;padding:0 4px}
+[dir=rtl] .back svg{transform:scaleX(-1)}
+.screen{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-size:22px;font-weight:600}
+h2{margin:0;font-size:15px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted);font-size:14px;line-height:1.5}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.okbox{border:1px solid var(--accLine);background:var(--accTint);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;color:var(--accDark)}
+.warnbox{border:1px solid var(--warnLine);background:var(--warnBg);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;color:var(--warnInk)}
+.warnbox .head{color:var(--warnHead);font-weight:600;font-size:16px}
+.okbox .head{font-weight:600;font-size:16px}
+.primary{width:100%;min-height:50px;border:none;border-radius:12px;background:var(--acc);color:#FFFFFF;font-size:16px;font-weight:600}
+.primary:disabled{background:#C9CCC6;color:var(--muted);cursor:not-allowed}
+.secondary{width:100%;min-height:48px;border:1px solid var(--line2);border-radius:12px;background:#FFFFFF;font-size:15px}
+.demo{width:100%;min-height:46px;border:1.5px dashed #7E837D;border-radius:12px;background:transparent;color:#3F4540;font-size:14px}
+.opt{text-align:start;width:100%;min-height:56px;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);background:#FFFFFF}
+.opt.on{border:2px solid var(--acc);background:var(--accTint)}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:10px;white-space:nowrap}
+.tag.new{background:#E3F1F0;color:#0B5552}.tag.changed{background:#E9ECF3;color:#2E3B56}.tag.stop{background:#FBE6D4;color:#7A3705}
+.st{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px;white-space:nowrap}
+.st.needs{background:var(--acc);color:#FFFFFF}.st.wait{background:#ECEDEA;color:#3F4540}.st.done{background:#E3F1F0;color:#0B5552}.st.call{background:#FBE6D4;color:#7A3705}.st.track{background:#E3F1F0;color:#0B5552}
+.bar{height:10px;background:#E3E5E0;border-radius:5px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc)}
+.field{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid #ECEDEA}
+.field span:first-child{font-size:12px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:8px;padding:6px 10px;font-size:13px}
+.trackbtn{text-align:start;border:1px solid var(--line);border-radius:14px;background:#FFFFFF;padding:16px;display:flex;flex-direction:column;gap:10px}
+.docbtn{text-align:start;border:1px solid var(--line);border-radius:14px;background:#FFFFFF;padding:18px;display:flex;gap:14px;align-items:center}
+.docicon{width:44px;height:54px;flex-shrink:0;border:1px solid var(--line2);border-radius:6px;background:var(--bg);display:flex;flex-direction:column;gap:5px;padding:8px 7px}
+.docicon i{display:block;height:3px;background:#C9CCC6}.docicon i:first-child{background:#9CA19B}
+.scan{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 20px 32px;background:#1F2321}
+.paper{width:236px;height:330px;background:#FBFBF8;border-radius:4px;padding:22px 18px;display:flex;flex-direction:column;gap:9px}
+.paper i{display:block;height:5px;background:#CBCEC8}.paper b{display:block;height:7px;background:#8F948E;margin-top:8px}
+.spinner{width:64px;height:64px;border-radius:50%;border:5px solid #CFE5E3;border-top-color:var(--acc);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hosp{max-width:1280px;margin:0 auto;padding:24px 16px 40px;display:flex;flex-direction:column;gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.kpi b{font-size:30px;font-weight:600}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{min-height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line2);background:#FFFFFF;font-size:14px}
+.filters button.on{background:var(--acc);border-color:var(--acc);color:#FFFFFF;font-weight:600}
+.split{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+.tablebox{flex:999 1 560px;min-width:0;background:#FFFFFF;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+th{text-align:start;padding:12px 16px;font-weight:600;font-size:13px;color:var(--muted);background:#F7F8F6}
+td{padding:12px 16px;border-top:1px solid #ECEDEA;vertical-align:middle}
+tr.sel td{background:#EEF6F5}
+.namebtn{border:none;background:transparent;padding:0;font-size:15px;font-weight:600;color:var(--acc);text-decoration:underline;min-height:32px}
+.smallbtn{min-height:36px;padding:0 14px;border-radius:10px;font-size:13px;border:1px solid var(--line2);background:#FFFFFF}
+.smallbtn.go{border:none;background:var(--acc);color:#FFFFFF;font-weight:600}
+.minibar{width:80px;height:8px;background:#E3E5E0;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle}.minibar i{display:block;height:100%;background:var(--acc)}
+aside{flex:1 1 300px;min-width:0;background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
+textarea{font:inherit;font-size:14px;padding:10px;border:1px solid var(--line2);border-radius:10px;resize:vertical;width:100%}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.cal .dow{font-size:11px;color:var(--muted);padding:2px 0}
+.day{min-height:40px;border:1px solid var(--line);border-radius:10px;background:#FFFFFF;font-size:14px}
+.day.on{background:var(--acc);border-color:var(--acc);color:#FFFFFF;font-weight:600}
+.day:disabled{background:#F1F2EF;color:#9A9F99;border-color:#ECEDEA;cursor:not-allowed}
+.timechip{min-height:40px;padding:0 12px;border:1px solid var(--line2);border-radius:10px;background:#FFFFFF;font-size:14px}
+.timechip.on{background:var(--acc);border-color:var(--acc);color:#FFFFFF;font-weight:600}
+.note{max-width:1280px;margin:0 auto;padding:0 16px 24px;font-size:12px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="seg" role="tablist">
+    <button type="button" data-a="view" data-v="app" id="tabApp"></button>
+    <button type="button" data-a="view" data-v="hosp" id="tabHosp"></button>
+  </div>
+  <button type="button" class="pill-btn" data-a="lang" id="langBtn"></button>
+</div>
+<div id="root"></div>
+<div class="note" id="footnote"></div>
+
+<script>
+var T = {
+  he: { appName:"צעד הבא", toggle:"EN", back:"חזרה", tabApp:"אפליקציית המטופל", tabHosp:"מבט בית החולים", foot:"אב-טיפוס להדגמה בלבד. כל השמות, התאריכים, התרופות והמספרים הם נתוני דוגמה.",
+    hello:"שלום, רבקה", homeSub:"צלמו מסמך רפואי ונהפוך אותו לתוכנית פעולה שמתקדמת עד הסוף.", scanBtn:"צילום מסמך", myPlans:"התוכניות שלי", noPlans:"עדיין אין תוכניות.",
+    pickTitle:"איזה מסמך לצלם?", pickNote:"לצורך ההדגמה, בחרו מסמך לדוגמה.", optDis:"מכתב שחרור, מרכז רפואי גבעון", optDisSub:"פנימית ב׳ · 3 ימי אשפוז", optExt:"סיכום ביקור, קרדיולוג פרטי", optExtSub:"מרפאה פרטית · ביקור חד-פעמי",
+    scanTitle:"יישרו את המסמך בתוך המסגרת", capture:"צילום", readingTitle:"קוראים את המסמך…", readingSteps:["מזהים תרופות","מזהים בדיקות ותורים","בודקים הפניות","מסמנים סימני אזהרה"],
+    reviewTitle:"זה מה שמצאנו", reviewSub:"בדקו שהכול נכון. שום דבר לא נשלח בלי אישורכם.", secMeds:"תרופות", secTests:"בדיקות ותורים", secRef:"הפניה", secWarn:"מתי לפנות מיד למיון",
+    tagNew:"חדש", tagChanged:"שינוי מינון", tagStop:"להפסיק", askNurse:"משהו לא ברור? שאלו אחות", nurseSent:"השאלה נשלחה לצוות הסיעודי בגבעון. תשובה עד סוף היום.",
+    consent:"אני מאשר/ת לשתף את המסמך עם קופת החולים שלי ועם רופא המשפחה", confirm:"הכול נכון, בואו נתחיל",
+    planTitle:"התוכנית שלך", nextLabel:"הצעד הבא:", allDone:"כל הצעדים הושלמו. נמשיך לעקוב ולהזכיר.", familyNote:"שרה (בת) רואה את התוכנית ויכולה לאשר צעדים בשמך.",
+    trT17:"הפניה וטופס 17", trRx:"בית מרקחת", pillNeeds:"ממתין לאישורך", pillWait:"ממתין לאחרים", pillDone:"הושלם",
+    checkTitle:"האם ההפניה תקפה לטופס 17?", letterTitle:"מכתב לרופא המשפחה", approveHint:"בדקו את המכתב. הוא יישלח רק אחרי אישורכם.", approveSendGP:"אישור ושליחה לרופא",
+    waitGPTitle:"המכתב נשלח לרופא המשפחה", waitGPBody:"נעדכן ברגע שתגיע תשובה. אם אין תשובה תוך 3 ימי עבודה, נשלח תזכורת.", simGP:"הדגמה: הרופא שלח הפניה", gpArrived:"ההפניה מרופא המשפחה התקבלה",
+    approveT17Title:"לשלוח בקשה לטופס 17?", approveT17Sub:"מילאנו את הבקשה מתוך ההפניה. בדקו ואשרו.", approveT17Btn:"אישור ושליחה לנווה",
+    waitKupaTitle:"הבקשה נשלחה לנווה", waitKupaBody:"נעקוב אחרי הבקשה ונעדכן ברגע שתאושר.", simKupa:"הדגמה: נווה אישרה",
+    slotsTitle:"טופס 17 אושר. בחרו מועד", slotsSub:"מועדים שמתאימים ליומן שלך", bookBtn:"קביעת התור", bookedTitle:"התור נקבע", bookedBody:"נשלח תזכורת יום לפני, עם הוראות הכנה אם יש.", backToPlan:"חזרה לתוכנית",
+    rxCheckTitle:"האם צריך מרשם מהקופה?", rxYes:"כן, צריך מרשם מרופא המשפחה", rxReqTitle:"בקשת מרשם מרופא המשפחה", rxWaitTitle:"הבקשה נשלחה לרופא", simRx:"הדגמה: הרופא הנפיק מרשם",
+    orderTitle:"המרשם מוכן. איך לקבל את התרופות?", pickup:"איסוף מבית המרקחת", pickupSub:"פארם-טוב [סניף] · מוכן היום אחרי 16:00", delivery:"משלוח הביתה", deliverySub:"מחר עד 14:00",
+    approveOrder:"אישור ההזמנה", orderedTitle:"ההזמנה אושרה", remTitle:"תזכורות שנקבעו",
+    fuTitle:"בחרנו מועדים שמתאימים ליומן שלך", fuSub:"אפשר לשנות כל מועד, ואז לאשר את כולם.", approveAll:"אישור כל המועדים", fuBookedTitle:"כל התורים נקבעו",
+    changeTime:"שינוי מועד", pickDay:"בחרו יום", pickTime:"בחרו שעה", save:"שמירה", cancel:"ביטול", changedTag:"שונה", closedNote:"ימי שישי ושבת סגורים",
+    next:{letter:"לאשר מכתב לרופא",waitGP:"ממתינים לרופא המשפחה",approve:"לאשר בקשת טופס 17",waitKupa:"ממתינים לאישור נווה",slots:"לבחור מועד",booked:"התור נקבע",req:"לאשר בקשת מרשם",wait:"ממתינים למרשם",order:"לאשר הזמנה",ordered:"הוזמן, תזכורות פעילות",fuslots:"לאשר מועדים",fubooked:"כל התורים נקבעו"},
+    progress:function(d,t){return d+" מתוך "+t+" צעדים הושלמו";},
+    hTitle:"גבעון · מעקב אחרי שחרור", hSub:"מטופלים ששוחררו בשבוע האחרון ומצב התוכנית שלהם", sample:"נתוני דוגמה",
+    kFollowed:"במעקב", kTrack:"במסלול", kCall:"צריך שיחה", kWait:"ממתינים לאחרים", fAll:"הכול",
+    colPatient:"מטופל/ת", colDischarged:"שחרור", colProgress:"התקדמות", colNext:"הצעד הבא", colStatus:"מצב", colAction:"פעולה",
+    call:"להתקשר", view:"פרטים", dischargedOn:"שוחרר/ה ב-", callPatient:"שיחה למטופל/ת", messageFamily:"הודעה למשפחה", notes:"הערות שיחה", notesPh:"מה סוכם בשיחה…", lFu:"בדיקות ותורים" },
+  en: { appName:"Next Step", toggle:"עב", back:"Back", tabApp:"Patient app", tabHosp:"Hospital view", foot:"Demo prototype only. All names, dates, medications and numbers are sample data.",
+    hello:"Hello, Rivka", homeSub:"Snap a medical document and we turn it into a plan that gets done.", scanBtn:"Scan a document", myPlans:"My plans", noPlans:"No plans yet.",
+    pickTitle:"Which document?", pickNote:"For this demo, pick a sample document.", optDis:"Discharge letter, Givon Medical Center", optDisSub:"Internal medicine · 3-day stay", optExt:"Visit summary, private cardiologist", optExtSub:"Private clinic · one-off visit",
+    scanTitle:"Line the document up inside the frame", capture:"Capture", readingTitle:"Reading the document…", readingSteps:["Finding medications","Finding tests and appointments","Checking referrals","Marking warning signs"],
+    reviewTitle:"Here is what we found", reviewSub:"Check it is right. Nothing is sent without your approval.", secMeds:"Medications", secTests:"Tests and appointments", secRef:"Referral", secWarn:"Go to the ER straight away if",
+    tagNew:"New", tagChanged:"Dose changed", tagStop:"Stop", askNurse:"Something unclear? Ask a nurse", nurseSent:"Your question went to the Givon nursing team. Reply by end of day.",
+    consent:"I agree to share this document with my kupa and my family doctor", confirm:"All correct, let's start",
+    planTitle:"Your plan", nextLabel:"Next:", allDone:"Every step is done. We will keep tracking and reminding.", familyNote:"Sarah (daughter) can see this plan and approve steps for you.",
+    trT17:"Referral and Tofes 17", trRx:"Pharmacy", pillNeeds:"Needs your OK", pillWait:"Waiting on others", pillDone:"Done",
+    checkTitle:"Is the referral valid for a Tofes 17?", letterTitle:"Letter to your family doctor", approveHint:"Check the letter. It is only sent after you approve it.", approveSendGP:"Approve and send to my GP",
+    waitGPTitle:"Letter sent to your family doctor", waitGPBody:"We will tell you when the reply arrives. If nothing comes within 3 working days, we send a reminder.", simGP:"Demo: GP sends the referral", gpArrived:"Your family doctor's referral has arrived",
+    approveT17Title:"Send the Tofes 17 request?", approveT17Sub:"We filled in the request from the referral. Check and approve.", approveT17Btn:"Approve and send to Naveh",
+    waitKupaTitle:"Request sent to Naveh", waitKupaBody:"We will track the request and tell you as soon as it is approved.", simKupa:"Demo: Naveh approves",
+    slotsTitle:"Tofes 17 approved. Pick a time", slotsSub:"Times that fit your diary", bookBtn:"Book this time", bookedTitle:"Appointment booked", bookedBody:"We will remind you the day before, with any prep instructions.", backToPlan:"Back to my plan",
+    rxCheckTitle:"Is a kupa prescription needed?", rxYes:"Yes, your family doctor needs to prescribe", rxReqTitle:"Prescription request to your GP", rxWaitTitle:"Request sent to your GP", simRx:"Demo: GP issues the prescription",
+    orderTitle:"Prescription ready. How do you want your medication?", pickup:"Pick up from the pharmacy", pickupSub:"PharmTov [branch] · ready today after 16:00", delivery:"Home delivery", deliverySub:"Tomorrow by 14:00",
+    approveOrder:"Approve the order", orderedTitle:"Order approved", remTitle:"Reminders set",
+    fuTitle:"We picked times that fit your diary", fuSub:"Change any time you like, then approve them all.", approveAll:"Approve all times", fuBookedTitle:"All appointments booked",
+    changeTime:"Change time", pickDay:"Pick a day", pickTime:"Pick a time", save:"Save", cancel:"Cancel", changedTag:"Changed", closedNote:"Closed Friday and Saturday",
+    next:{letter:"Approve letter to GP",waitGP:"Waiting for your GP",approve:"Approve Tofes 17 request",waitKupa:"Waiting for Naveh",slots:"Pick a time",booked:"Appointment booked",req:"Approve prescription request",wait:"Waiting for prescription",order:"Approve the order",ordered:"Ordered, reminders on",fuslots:"Approve times",fubooked:"All booked"},
+    progress:function(d,t){return d+" of "+t+" steps done";},
+    hTitle:"Givon · Discharge follow-up", hSub:"Patients discharged in the last week and where their plan stands", sample:"Sample data",
+    kFollowed:"Being followed", kTrack:"On track", kCall:"Need a call", kWait:"Waiting on others", fAll:"All",
+    colPatient:"Patient", colDischarged:"Discharged", colProgress:"Progress", colNext:"Next step", colStatus:"Status", colAction:"Action",
+    call:"Call", view:"View", dischargedOn:"discharged", callPatient:"Call patient", messageFamily:"Message family", notes:"Call notes", notesPh:"What was agreed on the call…", lFu:"Tests and appointments" }
+};
+
+function med(t, name, note, kind){ return {name:name, note:note, kind:kind, tag: kind==="new"?t.tagNew:kind==="changed"?t.tagChanged:t.tagStop}; }
+
+function data(flow, lang){
+  var t=T[lang], he=lang==="he";
+  if(flow==="dis") return {
+    docName: he?"מכתב שחרור · גבעון, פנימית ב׳":"Discharge letter · Givon, internal medicine",
+    meds:[ med(t, he?"אוגמנטין 875 מ״ג":"Augmentin 875 mg", he?"פעמיים ביום, עוד 5 ימים":"Twice a day, 5 more days","new"),
+           med(t, he?"אמלודיפין":"Amlodipine", he?"מ-5 מ״ג ל-10 מ״ג, פעם ביום":"From 5 mg to 10 mg, once a day","changed"),
+           med(t, he?"איבופרופן":"Ibuprofen", he?"להפסיק עד הביקור אצל רופא המשפחה":"Stop until you see your family doctor","stop") ],
+    tests:[ [he?"ביקור אצל רופא המשפחה":"Family doctor visit", he?"תוך 7 ימים":"Within 7 days"], [he?"בדיקות דם (ספירה, CRP)":"Blood tests (CBC, CRP)", he?"בעוד שבוע":"In 1 week"], [he?"צילום חזה":"Chest X-ray", he?"בעוד 6 שבועות":"In 6 weeks"], [he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon", he?"בעוד 4 שבועות":"In 4 weeks"] ],
+    refText: he?"הפניה ממחלקת פנימית ב׳ למרפאת פנימית בגבעון. נדרש טופס 17.":"Referral from internal medicine to the Givon internal medicine clinic. Needs a Tofes 17.",
+    warning: he?["חום מעל 38.5 שנמשך יותר מיומיים","קוצר נשימה או כאב בחזה"]:["Fever over 38.5 for more than 2 days","Shortness of breath or chest pain"],
+    hasNurse:true, t17Valid:true,
+    checkResult: he?"כן, ההפניה תקפה":"Yes, the referral is valid",
+    checkBody: he?"בית החולים הפנה למרפאת פנימית בגבעון. אפשר לבקש טופס 17 ישירות מנווה, בלי לעבור דרך רופא המשפחה.":"The hospital referred you to the Givon internal medicine clinic. We can request the Tofes 17 from Naveh directly, without going through your GP.",
+    t17Fields:[ [he?"שירות":"Service", he?"מרפאת פנימית, מרכז רפואי גבעון":"Internal medicine clinic, Givon Medical Center"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [שם], פנימית ב׳":"Dr [name], internal medicine"], [he?"מועד מומלץ":"Recommended timing", he?"בעוד 4 שבועות":"In 4 weeks"], [he?"מצורף":"Attached", he?"מכתב שחרור.pdf":"Discharge letter.pdf"] ],
+    slotsWhere: he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon",
+    slots: he?["יום ב׳, 9 בנובמבר · 09:30","יום ד׳, 11 בנובמבר · 14:00","יום א׳, 15 בנובמבר · 11:15"]:["Mon 9 Nov · 09:30","Wed 11 Nov · 14:00","Sun 15 Nov · 11:15"],
+    rxReason: he?"בית החולים נתן תרופות לשלושה ימים בלבד. להמשך הטיפול צריך מרשם מרופא המשפחה.":"The hospital gave you 3 days of medication only. To continue, your family doctor needs to prescribe.",
+    stopNote: he?"שימו לב: להפסיק איבופרופן. נזכיר לכם.":"Note: stop taking ibuprofen. We will remind you.",
+    rxReq: he?"שלום ד״ר [שם], אבקש מרשם להמשך הטיפול לפי מכתב השחרור מגבעון (מצורף): אוגמנטין 875 מ״ג פעמיים ביום ל-5 ימים, ואמלודיפין 10 מ״ג פעם ביום. תודה, רבקה כהן":"Dear Dr [name], please could you prescribe the medication in my Givon discharge letter (attached): Augmentin 875 mg twice a day for 5 days, and amlodipine 10 mg once a day. Thank you, Rivka Cohen",
+    reminders: he?["אוגמנטין: 08:00 ו-20:00, עד [תאריך]","אמלודיפין 10 מ״ג: כל בוקר ב-08:00","לא לקחת איבופרופן"]:["Augmentin: 08:00 and 20:00, until [date]","Amlodipine 10 mg: every morning at 08:00","Do not take ibuprofen"],
+    fuTrack: he?"רופא משפחה ובדיקות":"GP visit and tests",
+    fuItems:[ {name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"תוך 7 ימים":"Within 7 days", iso:"2026-10-15", time:"17:30"}, {name:he?"בדיקות דם (ספירה, CRP)":"Blood tests (CBC, CRP)", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-18", time:"07:45"}, {name:he?"צילום חזה":"Chest X-ray", when:he?"בעוד 6 שבועות":"In 6 weeks", iso:"2026-11-23", time:"11:00"} ]
+  };
+  return {
+    docName: he?"סיכום ביקור · קרדיולוג פרטי":"Visit summary · private cardiologist",
+    meds:[ med(t, he?"אטורבסטטין 20 מ״ג":"Atorvastatin 20 mg", he?"פעם ביום, בערב":"Once a day, in the evening","new") ],
+    tests:[ [he?"אקו לב":"Echocardiogram", he?"בחודש הקרוב":"Within a month"], [he?"הולטר 24 שעות":"24-hour Holter", he?"בחודש הקרוב":"Within a month"], [he?"בדיקת דם: פרופיל שומנים":"Blood test: lipid profile", he?"בעוד שבוע":"In 1 week"], [he?"מעקב קרדיולוג":"Cardiology follow-up", he?"בעוד 3 חודשים":"In 3 months"] ],
+    refText: he?"הקרדיולוג ממליץ על אקו לב והולטר. ההמלצה היא ממרפאה פרטית.":"The cardiologist recommends an echocardiogram and a Holter. The recommendation is from a private clinic.",
+    warning: he?["כאב בחזה, דפיקות לב חזקות או עילפון"]:["Chest pain, strong palpitations or fainting"],
+    hasNurse:false, t17Valid:false,
+    checkResult: he?"לא, נדרשת הפניה מרופא המשפחה":"No, your family doctor must refer you",
+    checkBody: he?"המלצה ממרפאה פרטית לא מספיקה לטופס 17. נכין מכתב לרופא המשפחה עם הסיכום מצורף, ונבקש הפניה משלו.":"A private clinic's recommendation is not enough for a Tofes 17. We prepare a letter to your family doctor with the summary attached, asking for their own referral.",
+    letterTo: he?"אל: ד״ר [רופא המשפחה], מרפאת נווה [סניף]":"To: Dr [family doctor], Naveh clinic [branch]",
+    letterBody: he?"שלום ד״ר [שם], ביום [תאריך] ביקרתי אצל קרדיולוג פרטי שהמליץ על אקו לב והולטר 24 שעות. סיכום הביקור מצורף. אבקש הפניה לבדיקות דרך הקופה. תודה, רבקה כהן":"Dear Dr [name], on [date] I saw a private cardiologist who recommended an echocardiogram and a 24-hour Holter. The visit summary is attached. Please could you refer me for these tests through the kupa. Thank you, Rivka Cohen",
+    attachments: he?["סיכום ביקור.pdf","המלצת הקרדיולוג.pdf"]:["Visit summary.pdf","Cardiologist recommendation.pdf"],
+    t17Fields:[ [he?"שירות":"Service", he?"אקו לב והולטר 24 שעות":"Echocardiogram and 24-hour Holter"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [רופא המשפחה]":"Dr [family doctor]"], [he?"מכון":"Provider", he?"[מכון בהסדר עם נווה]":"[Naveh-contracted provider]"], [he?"מצורף":"Attached", he?"הפניה מרופא המשפחה.pdf":"GP referral.pdf"] ],
+    slotsWhere: he?"אקו לב, [מכון]":"Echocardiogram, [provider]",
+    slots: he?["יום ב׳, 26 באוקטובר · 08:30","יום ד׳, 28 באוקטובר · 15:00","יום א׳, 1 בנובמבר · 10:45"]:["Mon 26 Oct · 08:30","Wed 28 Oct · 15:00","Sun 1 Nov · 10:45"],
+    rxReason: he?"מרשם מרופא פרטי לא מזכה במחיר המסובסד. נבקש מרופא המשפחה מרשם קופה.":"A private prescription does not get the subsidised price. We ask your family doctor for a kupa prescription.",
+    stopNote:"",
+    rxReq: he?"שלום ד״ר [שם], אבקש מרשם קופה לאטורבסטטין 20 מ״ג פעם ביום, לפי המלצת הקרדיולוג (מצורפת). תודה, רבקה כהן":"Dear Dr [name], please could you prescribe atorvastatin 20 mg once a day through the kupa, as the cardiologist recommended (attached). Thank you, Rivka Cohen",
+    reminders: he?["אטורבסטטין: כל ערב ב-21:00","חידוש מרשם בעוד 3 חודשים"]:["Atorvastatin: every evening at 21:00","Prescription renewal in 3 months"],
+    fuTrack: he?"בדיקות ומעקב":"Tests and follow-ups",
+    fuItems:[ {name:he?"בדיקת דם: פרופיל שומנים":"Blood test: lipid profile", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-19", time:"07:45"}, {name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"לעבור על התוצאות":"To go over the results", iso:"2026-10-21", time:"16:00"}, {name:he?"מעקב קרדיולוג (פרטי)":"Cardiology follow-up (private)", when:he?"בעוד 3 חודשים":"In 3 months", iso:null, note:he?"תזכורת לקבוע תור בינואר":"Reminder to book in January"} ]
+  };
+}
+
+var ROWS = [
+  {id:1,he:["ר.כ.","פנימית ב׳","לאשר בקשת טופס 17","ממתין לאישור המטופלת","הוזמן, איסוף היום","רופא משפחה נקבע ל-15.10",""],en:["R.C.","Internal medicine B","Approve Tofes 17 request","Waiting for the patient's approval","Ordered, pickup today","GP visit booked for 15 Oct",""],date:"8.10",done:3,total:9,st:"track"},
+  {id:2,he:["מ.ל.","קרדיולוגיה","ממתינים להפניה מרופא המשפחה, 4 ימים","מכתב לרופא נשלח, נשלחה תזכורת","ממתינים למרשם","בדיקת דם נקבעה ל-19.10",""],en:["M.L.","Cardiology","Waiting for GP referral, 4 days","Letter sent to GP, reminder sent","Waiting for prescription","Blood test booked for 19 Oct",""],date:"6.10",done:2,total:8,st:"wait"},
+  {id:3,he:["א.ש.","פנימית א׳","לא פתח/ה את התוכנית","לא התחיל","לא התחיל","לא התחיל","לא פתח/ה את התוכנית מאז השחרור"],en:["A.S.","Internal medicine A","Has not opened the plan","Not started","Not started","Not started","Has not opened the plan since discharge"],date:"7.10",done:0,total:7,st:"call"},
+  {id:4,he:["ד.ב.","אורתופדיה","פיזיותרפיה נקבעה","תור למרפאה נקבע","הושלם","פיזיותרפיה נקבעה ל-14.10",""],en:["D.B.","Orthopaedics","Physiotherapy booked","Clinic visit booked","Done","Physiotherapy booked for 14 Oct",""],date:"5.10",done:6,total:7,st:"track"},
+  {id:5,he:["י.פ.","פנימית ב׳","החמיץ/ה בדיקת דם","בקשת טופס 17 נשלחה","הושלם","לא הגיע/ה לבדיקת דם היום","החמיץ/ה בדיקת דם מתוכננת"],en:["Y.P.","Internal medicine B","Missed blood test","Tofes 17 request sent","Done","Did not attend blood test today","Missed a planned blood test"],date:"4.10",done:1,total:8,st:"call"},
+  {id:6,he:["ש.ג.","כירורגיה נווה","לאסוף תרופות","תור נקבע","מוכן לאיסוף","בדיקת פצע נקבעה",""],en:["S.G.","General surgery","Collect medication","Appointment booked","Ready for pickup","Wound check booked",""],date:"8.10",done:4,total:6,st:"track"},
+  {id:7,he:["נ.ע.","קרדיולוגיה","ממתינים לאישור נווה","ממתינים לאישור טופס 17","הושלם","אקו לב נקבע ל-26.10",""],en:["N.A.","Cardiology","Waiting for Naveh approval","Waiting for Tofes 17 approval","Done","Echo booked for 26 Oct",""],date:"3.10",done:5,total:9,st:"wait"},
+  {id:8,he:["ת.ח.","פנימית א׳","דיווח/ה על חום, לחזור בטלפון","אושר, לא נבחר מועד","הושלם","דווח חום באפליקציה היום","דווח סימן אזהרה: חום"],en:["T.H.","Internal medicine A","Reported fever, call back","Approved, no slot picked","Done","Fever reported in the app today","Warning sign reported: fever"],date:"6.10",done:2,total:7,st:"call"}
+];
+
+var K17={dis:["approve","waitKupa","slots","booked"],ext:["letter","waitGP","approve","waitKupa","slots","booked"]};
+var KRX=["req","wait","order","ordered"], KFU=["slots","booked"];
+var NEEDS={letter:1,approve:1,slots:1,req:1,order:1}, DONE={booked:1,ordered:1};
+var BACK={pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
+
+var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}};
+
+var DOW={he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
+var MON={he:["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
+var TIMES=["07:45","09:30","11:00","14:30","16:00","17:30"];
+var TODAY=Date.UTC(2026,9,11);
+function parseIso(iso){var p=iso.split("-");return Date.UTC(+p[0],+p[1]-1,+p[2]);}
+function toIso(ms){return new Date(ms).toISOString().slice(0,10);}
+function fmt(iso,time){var ms=parseIso(iso),dt=new Date(ms),w=dt.getUTCDay(),d=dt.getUTCDate(),m=dt.getUTCMonth();return S.lang==="he"?("יום "+DOW.he[w]+", "+d+" ב"+MON.he[m]+" · "+time):(DOW.en[w]+" "+d+" "+MON.en[m]+" · "+time);}
+function fuCurrent(it,i){return S.fuOverride[i]||{iso:it.iso,time:it.time};}
+function fuLabel(it,cur){return it.iso?fmt(cur.iso,cur.time):it.note;}
+function calendar(it,cur){
+  var t=T[S.lang], base=parseIso(it.iso), start=base-new Date(base).getUTCDay()*864e5, day=S.fuDay||cur.iso, h='<div style="border-top:1px solid #ECEDEA;margin-top:8px;padding-top:12px;display:flex;flex-direction:column;gap:10px">';
+  var m0=new Date(start).getUTCMonth(), m1=new Date(start+13*864e5).getUTCMonth();
+  h+='<div class="row" style="align-items:center"><span style="font-size:14px;font-weight:600">'+t.pickDay+'</span><span class="small muted">'+MON[S.lang][m0]+(m1!==m0?' / '+MON[S.lang][m1]:'')+'</span></div><div class="cal">';
+  DOW[S.lang].forEach(function(n){h+='<span class="dow">'+n+'</span>';});
+  for(var k=0;k<14;k++){var ms=start+k*864e5,dt=new Date(ms),w=dt.getUTCDay(),iso=toIso(ms),off=ms<=TODAY||w>=5;
+    h+='<button type="button" class="day'+(iso===day?' on':'')+'" data-a="fuDay" data-v="'+iso+'" '+(off?'disabled':'')+' aria-label="'+esc(fmt(iso,"").replace(/ · $/,""))+'">'+dt.getUTCDate()+'</button>';}
+  h+='</div><span class="small muted">'+t.closedNote+'</span><span style="font-size:14px;font-weight:600">'+t.pickTime+'</span><div style="display:flex;flex-wrap:wrap;gap:8px">';
+  var time=S.fuTime||cur.time;
+  TIMES.forEach(function(tm){h+='<button type="button" class="timechip'+(tm===time?' on':'')+'" data-a="fuTime" data-v="'+tm+'">'+tm+'</button>';});
+  h+='</div><div style="display:flex;gap:8px"><button type="button" class="primary" data-a="fuSave" style="min-height:44px;font-size:15px">'+t.save+'</button><button type="button" class="secondary" data-a="fuCancel" style="min-height:44px">'+t.cancel+'</button></div></div>';
+  return h;
+}
+
+function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var CHECK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E6A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
+var CLIP='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12l-8.5 8.5a5 5 0 0 1-7-7L14 5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 8"/></svg>';
+
+function pill(t,kind){ if(DONE[kind]) return '<span class="st done">'+t.pillDone+'</span>'; if(NEEDS[kind]) return '<span class="st needs">'+t.pillNeeds+'</span>'; return '<span class="st wait">'+t.pillWait+'</span>'; }
+
+function appScreen(){
+  var t=T[S.lang], flow=S.flow||"dis", d=data(flow,S.lang);
+  var k17list=K17[flow], k17=k17list[S.t17], kRx=KRX[S.rx], kFu=KFU[S.fu];
+  var done=S.t17+S.rx+S.fu, total=(k17list.length-1)+(KRX.length-1)+(KFU.length-1), pct=Math.round(done/total*100);
+  var progress='<div class="bar"><i style="width:'+pct+'%"></i></div><p class="small muted">'+esc(t.progress(done,total))+'</p>';
+  var h="";
+  switch(S.screen){
+  case "home":
+    h+='<div class="screen" style="padding:24px 20px;gap:20px"><div style="display:flex;flex-direction:column;gap:6px"><h1 style="font-size:26px">'+t.hello+'</h1><p class="muted" style="font-size:15px">'+t.homeSub+'</p></div>';
+    h+='<button type="button" data-a="go" data-v="pick" style="min-height:120px;border:2px dashed #0F6E6A;border-radius:18px;background:#FFFFFF;color:#0F6E6A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:18px;font-weight:600">'+t.scanBtn+'</span></button>';
+    h+='<div style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:16px">'+t.myPlans+'</h2>';
+    h+= S.planned ? '<button type="button" class="trackbtn" data-a="go" data-v="plan"><span style="font-weight:600">'+esc(d.docName)+'</span>'+progress+'</button>' : '<div class="card muted">'+t.noPlans+'</div>';
+    h+='</div></div>'; break;
+  case "pick":
+    h+='<div class="screen" style="padding:24px 20px"><h1>'+t.pickTitle+'</h1><p class="muted">'+t.pickNote+'</p>';
+    h+='<button type="button" class="docbtn" data-a="start" data-v="dis"><span class="docicon"><i></i><i></i><i></i><i style="width:60%"></i></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:600">'+t.optDis+'</span><span class="small muted">'+t.optDisSub+'</span></span></button>';
+    h+='<button type="button" class="docbtn" data-a="start" data-v="ext"><span class="docicon"><i></i><i></i><i style="width:70%"></i></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:600">'+t.optExt+'</span><span class="small muted">'+t.optExtSub+'</span></span></button></div>'; break;
+  case "scan":
+    h+='<div class="scan"><p style="color:#E7E9E5;font-size:15px;text-align:center">'+t.scanTitle+'</p><div style="width:280px;height:400px;position:relative;display:flex;align-items:center;justify-content:center"><div class="paper"><b style="width:55%;margin:0"></b><i></i><i></i><i style="width:80%"></i><b style="width:40%"></b><i></i><i style="width:90%"></i><i style="width:70%"></i><b style="width:45%"></b><i></i><i style="width:60%"></i></div><div style="position:absolute;inset:0;border:3px solid #5FC4BC;border-radius:12px"></div></div><button type="button" data-a="capture" aria-label="'+t.capture+'" style="width:76px;height:76px;border-radius:50%;border:5px solid #FFFFFF;background:#5FC4BC"></button></div>'; break;
+  case "reading":
+    h+='<div class="screen" style="align-items:center;justify-content:center;gap:24px"><div class="spinner"></div><h1 style="font-size:20px">'+t.readingTitle+'</h1><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px;color:#4A504B">';
+    t.readingSteps.forEach(function(s){h+='<li style="display:flex;gap:10px;align-items:center">'+CHECK+'<span>'+s+'</span></li>';});
+    h+='</ul></div>'; break;
+  case "review":
+    h+='<div class="screen"><div style="display:flex;flex-direction:column;gap:6px"><h1>'+t.reviewTitle+'</h1><p class="muted">'+esc(d.docName)+' · '+t.reviewSub+'</p></div>';
+    h+='<section class="card"><h2>'+t.secMeds+'</h2>'; d.meds.forEach(function(m){h+='<div class="row"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:500">'+esc(m.name)+'</span><span class="small muted">'+esc(m.note)+'</span></div><span class="tag '+m.kind+'">'+m.tag+'</span></div>';}); h+='</section>';
+    h+='<section class="card"><h2>'+t.secTests+'</h2>'; d.tests.forEach(function(x){h+='<div class="row" style="font-size:14px"><span style="font-weight:500">'+esc(x[0])+'</span><span class="muted">'+esc(x[1])+'</span></div>';}); h+='</section>';
+    h+='<section class="card" style="gap:6px"><h2>'+t.secRef+'</h2><p style="font-size:14px;line-height:1.5">'+esc(d.refText)+'</p></section>';
+    h+='<section class="warnbox"><h2 style="color:#8A3F06">'+t.secWarn+'</h2>'; d.warning.forEach(function(w){h+='<p style="font-size:14px;line-height:1.5">'+esc(w)+'</p>';}); h+='</section>';
+    if(d.hasNurse) h+= S.nurseAsked ? '<div class="okbox" style="font-size:14px">'+t.nurseSent+'</div>' : '<button type="button" class="secondary" data-a="nurse">'+t.askNurse+'</button>';
+    h+='<label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;cursor:pointer;padding:4px 0"><input type="checkbox" data-a="consent" '+(S.consent?'checked':'')+' style="width:22px;height:22px;margin:0;accent-color:#0F6E6A;flex-shrink:0"><span>'+t.consent+'</span></label>';
+    h+='<button type="button" class="primary" data-a="confirm" '+(S.consent?'':'disabled')+'>'+t.confirm+'</button></div>'; break;
+  case "plan":
+    h+='<div class="screen"><div style="display:flex;flex-direction:column;gap:8px"><h1>'+t.planTitle+'</h1><p class="muted">'+esc(d.docName)+'</p>'+progress+'</div>';
+    if(done===total) h+='<div class="okbox" style="font-size:15px;font-weight:500">'+t.allDone+'</div>';
+    [[t.trT17,"t17",k17,t.next[k17]],[t.trRx,"rx",kRx,t.next[kRx]],[d.fuTrack,"fu",kFu,t.next["fu"+kFu]]].forEach(function(tr){
+      h+='<button type="button" class="trackbtn" data-a="go" data-v="'+tr[1]+'"><span class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">'+esc(tr[0])+'</span>'+pill(t,tr[2])+'</span><span class="muted">'+t.nextLabel+' '+esc(tr[3])+'</span></button>';
+    });
+    h+='<p class="small muted">'+t.familyNote+'</p></div>'; break;
+  case "t17":
+    h+='<div class="screen"><p class="small" style="font-weight:500;color:#0F6E6A">'+t.trT17+'</p>';
+    if(k17==="letter"){
+      h+='<div class="warnbox"><span class="small">'+t.checkTitle+'</span><span class="head">'+esc(d.checkResult)+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.checkBody)+'</span></div>';
+      h+='<h1 style="font-size:19px">'+t.letterTitle+'</h1><div class="card"><span class="small muted">'+esc(d.letterTo)+'</span><p style="font-size:14px;line-height:1.6">'+esc(d.letterBody)+'</p><div style="display:flex;flex-wrap:wrap;gap:8px">';
+      d.attachments.forEach(function(a){h+='<span class="chip">'+CLIP+esc(a)+'</span>';});
+      h+='</div></div><p class="small muted">'+t.approveHint+'</p><button type="button" class="primary" data-a="adv17">'+t.approveSendGP+'</button>';
+    } else if(k17==="waitGP"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.waitGPTitle+'</span><span class="muted">'+t.waitGPBody+'</span></div><button type="button" class="demo" data-a="adv17">'+t.simGP+'</button>';
+    } else if(k17==="approve"){
+      h+= d.t17Valid ? '<div class="okbox"><span class="small">'+t.checkTitle+'</span><span class="head">'+esc(d.checkResult)+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.checkBody)+'</span></div>' : '<div class="okbox" style="font-size:15px;font-weight:500">'+t.gpArrived+'</div>';
+      h+='<h1 style="font-size:19px">'+t.approveT17Title+'</h1><p class="muted">'+t.approveT17Sub+'</p><div class="card" style="padding:4px 16px;gap:0">';
+      d.t17Fields.forEach(function(f){h+='<div class="field"><span>'+esc(f[0])+'</span><span style="font-size:15px">'+esc(f[1])+'</span></div>';});
+      h+='</div><button type="button" class="primary" data-a="adv17">'+t.approveT17Btn+'</button>';
+    } else if(k17==="waitKupa"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.waitKupaTitle+'</span><span class="muted">'+t.waitKupaBody+'</span></div><button type="button" class="demo" data-a="adv17">'+t.simKupa+'</button>';
+    } else if(k17==="slots"){
+      h+='<h1 style="font-size:19px">'+t.slotsTitle+'</h1><p class="muted">'+esc(d.slotsWhere)+' · '+t.slotsSub+'</p>';
+      d.slots.forEach(function(s,i){h+='<button type="button" class="opt'+(S.slot===i?' on':'')+'" data-a="slot" data-v="'+i+'" style="font-size:15px;font-weight:500">'+esc(s)+'</button>';});
+      h+='<button type="button" class="primary" data-a="book" '+(S.slot>=0?'':'disabled')+'>'+t.bookBtn+'</button>';
+    } else {
+      h+='<div class="okbox"><span style="font-size:18px;font-weight:600">'+t.bookedTitle+'</span><span style="font-size:15px">'+esc(d.slotsWhere)+' · '+esc(d.slots[S.slot]||"")+'</span><span style="font-size:14px;line-height:1.5">'+t.bookedBody+'</span></div><button type="button" class="secondary" data-a="go" data-v="plan">'+t.backToPlan+'</button>';
+    }
+    h+='</div>'; break;
+  case "rx":
+    h+='<div class="screen"><p class="small" style="font-weight:500;color:#0F6E6A">'+t.trRx+'</p>';
+    if(kRx==="req"){
+      h+='<div class="warnbox"><span class="small">'+t.rxCheckTitle+'</span><span class="head">'+t.rxYes+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.rxReason)+'</span></div>';
+      if(d.stopNote) h+='<div class="card" style="font-size:14px;font-weight:500">'+esc(d.stopNote)+'</div>';
+      h+='<h1 style="font-size:19px">'+t.rxReqTitle+'</h1><div class="card" style="font-size:14px;line-height:1.6">'+esc(d.rxReq)+'</div><button type="button" class="primary" data-a="advRx">'+t.approveSendGP+'</button>';
+    } else if(kRx==="wait"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.rxWaitTitle+'</span><span class="muted">'+t.waitGPBody+'</span></div><button type="button" class="demo" data-a="advRx">'+t.simRx+'</button>';
+    } else if(kRx==="order"){
+      h+='<h1 style="font-size:19px">'+t.orderTitle+'</h1>';
+      h+='<button type="button" class="opt'+(S.delivery==="pickup"?' on':'')+'" data-a="deliv" data-v="pickup"><span style="font-size:16px;font-weight:600">'+t.pickup+'</span><span class="small muted">'+t.pickupSub+'</span></button>';
+      h+='<button type="button" class="opt'+(S.delivery==="delivery"?' on':'')+'" data-a="deliv" data-v="delivery"><span style="font-size:16px;font-weight:600">'+t.delivery+'</span><span class="small muted">'+t.deliverySub+'</span></button>';
+      h+='<button type="button" class="primary" data-a="advRx">'+t.approveOrder+'</button>';
+    } else {
+      h+='<div class="okbox"><span style="font-size:18px;font-weight:600">'+t.orderedTitle+'</span><span style="font-size:14px">'+(S.delivery==="pickup"?t.pickup+' · '+t.pickupSub:t.delivery+' · '+t.deliverySub)+'</span></div><h2 style="font-size:16px">'+t.remTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
+      d.reminders.forEach(function(r){h+='<div class="field" style="font-size:14px">'+esc(r)+'</div>';});
+      h+='</div><button type="button" class="secondary" data-a="go" data-v="plan">'+t.backToPlan+'</button>';
+    }
+    h+='</div>'; break;
+  case "fu":
+    h+='<div class="screen"><p class="small" style="font-weight:500;color:#0F6E6A">'+esc(d.fuTrack)+'</p>';
+    if(kFu==="slots"){
+      h+='<h1 style="font-size:19px">'+t.fuTitle+'</h1><p class="muted">'+t.fuSub+'</p>';
+      d.fuItems.forEach(function(it,i){
+        var cur=fuCurrent(it,i), changed=!!S.fuOverride[i];
+        h+='<div class="card" style="gap:4px"><span class="row" style="align-items:center"><span style="font-size:15px;font-weight:600">'+esc(it.name)+'</span>'+(changed?'<span class="tag new">'+t.changedTag+'</span>':'')+'</span><span class="small muted">'+esc(it.when)+'</span><span style="font-size:14px;color:#0F6E6A;font-weight:500">'+esc(fuLabel(it,cur))+'</span>';
+        if(it.iso && S.fuEdit!==i) h+='<button type="button" class="smallbtn" data-a="fuEdit" data-v="'+i+'" style="align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>'+t.changeTime+'</button>';
+        if(S.fuEdit===i) h+=calendar(it,cur);
+        h+='</div>';
+      });
+      h+='<button type="button" class="primary" data-a="advFu" '+(S.fuEdit>=0?'disabled':'')+'>'+t.approveAll+'</button>';
+    } else {
+      h+='<div class="okbox" style="font-size:18px;font-weight:600">'+t.fuBookedTitle+'</div>';
+      d.fuItems.forEach(function(it,i){h+='<div class="card row" style="flex-direction:row;align-items:center"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">'+esc(it.name)+'</span><span class="small muted">'+esc(fuLabel(it,fuCurrent(it,i)))+'</span></span>'+CHECK+'</div>';});
+      h+='<p class="small muted">'+t.bookedBody+'</p><button type="button" class="secondary" data-a="go" data-v="plan">'+t.backToPlan+'</button>';
+    }
+    h+='</div>'; break;
+  }
+  var back = S.screen!=="home" ? '<button type="button" class="back" data-a="back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>'+t.back+'</span></button>' : '';
+  return '<div class="stage"><div class="phone"><div class="ahead"><div class="side">'+back+'</div><div style="font-size:17px;font-weight:600">'+t.appName+'</div><div class="side end"></div></div>'+h+'</div></div>';
+}
+
+function hospScreen(){
+  var t=T[S.lang], L=S.lang;
+  var counts={track:0,call:0,wait:0}; ROWS.forEach(function(r){counts[r.st]++;});
+  var stText={track:t.kTrack,call:t.kCall,wait:t.kWait};
+  var h='<div class="hosp"><header style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px"><div style="display:flex;flex-direction:column;gap:4px"><h1 style="font-size:26px">'+t.hTitle+'</h1><p class="muted">'+t.hSub+'</p></div><span class="st wait">'+t.sample+'</span></header>';
+  h+='<div class="kpis">';
+  [[t.kFollowed,ROWS.length,"#1C1F1D"],[t.kTrack,counts.track,"#0B5552"],[t.kCall,counts.call,"#8A3F06"],[t.kWait,counts.wait,"#3F4540"]].forEach(function(k){h+='<div class="kpi"><span class="small muted">'+k[0]+'</span><b style="color:'+k[2]+'">'+k[1]+'</b></div>';});
+  h+='</div><nav class="filters">';
+  [["all",t.fAll+" ("+ROWS.length+")"],["call",t.kCall+" ("+counts.call+")"],["wait",t.kWait+" ("+counts.wait+")"],["track",t.kTrack+" ("+counts.track+")"]].forEach(function(f){h+='<button type="button" data-a="filter" data-v="'+f[0]+'" class="'+(S.hFilter===f[0]?'on':'')+'">'+f[1]+'</button>';});
+  h+='</nav><div class="split"><section class="tablebox"><div class="scroll"><table><thead><tr><th>'+t.colPatient+'</th><th>'+t.colDischarged+'</th><th>'+t.colProgress+'</th><th>'+t.colNext+'</th><th>'+t.colStatus+'</th><th>'+t.colAction+'</th></tr></thead><tbody>';
+  ROWS.filter(function(r){return S.hFilter==="all"||r.st===S.hFilter;}).forEach(function(r){
+    var x=r[L], pct=Math.round(r.done/r.total*100);
+    h+='<tr class="'+(r.id===S.hSel?'sel':'')+'"><td><button type="button" class="namebtn" data-a="hsel" data-v="'+r.id+'">'+esc(x[0])+'</button><div class="small muted">'+esc(x[1])+'</div></td><td>'+r.date+'</td><td><span class="minibar"><i style="width:'+pct+'%"></i></span> <span class="small">'+r.done+'/'+r.total+'</span></td><td>'+esc(x[2])+'</td><td><span class="st '+r.st+'">'+stText[r.st]+'</span></td><td><button type="button" class="smallbtn'+(r.st==="call"?' go':'')+'" data-a="hsel" data-v="'+r.id+'">'+(r.st==="call"?t.call:t.view)+'</button></td></tr>';
+  });
+  var sel=ROWS.filter(function(r){return r.id===S.hSel;})[0]||ROWS[0], s=sel[L];
+  h+='</tbody></table></div></section><aside><div class="row" style="align-items:center"><h2 style="font-size:18px">'+esc(s[0])+'</h2><span class="st '+sel.st+'">'+stText[sel.st]+'</span></div><p class="small muted">'+esc(s[1])+' · '+t.dischargedOn+' '+sel.date+'</p>';
+  if(s[6]) h+='<div class="warnbox" style="padding:10px 12px;font-size:14px">'+esc(s[6])+'</div>';
+  h+='<div>'; [[t.trT17,s[3]],[t.trRx,s[4]],[t.lFu,s[5]]].forEach(function(tr){h+='<div class="field"><span>'+tr[0]+'</span><span style="font-size:14px">'+esc(tr[1])+'</span></div>';}); h+='</div>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:8px"><button type="button" class="primary" style="flex:1 1 120px;min-height:44px;font-size:14px">'+t.callPatient+'</button><button type="button" class="secondary" style="flex:1 1 120px;min-height:44px;font-size:14px">'+t.messageFamily+'</button></div>';
+  h+='<label style="display:flex;flex-direction:column;gap:6px" class="small muted">'+t.notes+'<textarea rows="3" placeholder="'+t.notesPh+'"></textarea></label></aside></div></div>';
+  return h;
+}
+
+function render(){
+  var t=T[S.lang];
+  document.documentElement.lang=S.lang; document.documentElement.dir=S.lang==="he"?"rtl":"ltr";
+  document.getElementById("tabApp").textContent=t.tabApp; document.getElementById("tabHosp").textContent=t.tabHosp;
+  document.getElementById("tabApp").className=S.view==="app"?"on":""; document.getElementById("tabHosp").className=S.view==="hosp"?"on":"";
+  document.getElementById("langBtn").textContent=t.toggle; document.getElementById("footnote").textContent=t.foot;
+  document.getElementById("root").innerHTML = S.view==="app" ? appScreen() : hospScreen();
+}
+
+function set(p){ for(var k in p) S[k]=p[k]; render(); }
+
+document.addEventListener("click", function(e){
+  var el=e.target.closest("[data-a]"); if(!el || el.disabled) return;
+  var a=el.getAttribute("data-a"), v=el.getAttribute("data-v"), flow=S.flow||"dis";
+  if(a==="consent") return;
+  if(a==="view") set({view:v});
+  else if(a==="lang") set({lang:S.lang==="he"?"en":"he"});
+  else if(a==="go") set({screen:v});
+  else if(a==="back") set({screen:BACK[S.screen]||"home"});
+  else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}});
+  else if(a==="fuEdit") set({fuEdit:+v,fuDay:null,fuTime:null});
+  else if(a==="fuDay") set({fuDay:v});
+  else if(a==="fuTime") set({fuTime:v});
+  else if(a==="fuCancel") set({fuEdit:-1,fuDay:null,fuTime:null});
+  else if(a==="fuSave"){ var it=data(flow,S.lang).fuItems[S.fuEdit], cur=fuCurrent(it,S.fuEdit), o={}; for(var k in S.fuOverride) o[k]=S.fuOverride[k]; var n={iso:S.fuDay||cur.iso,time:S.fuTime||cur.time}; if(n.iso!==it.iso||n.time!==it.time) o[S.fuEdit]=n; else delete o[S.fuEdit]; set({fuOverride:o,fuEdit:-1,fuDay:null,fuTime:null}); }
+  else if(a==="capture"){ set({screen:"reading"}); setTimeout(function(){ if(S.screen==="reading") set({screen:"review"}); },2200); }
+  else if(a==="nurse") set({nurseAsked:true});
+  else if(a==="confirm"){ if(S.consent) set({planned:true,screen:"plan"}); }
+  else if(a==="adv17"){ if(S.t17<K17[flow].length-1) set({t17:S.t17+1}); }
+  else if(a==="slot") set({slot:+v});
+  else if(a==="book"){ if(S.slot>=0) set({t17:S.t17+1}); }
+  else if(a==="advRx"){ if(S.rx<KRX.length-1) set({rx:S.rx+1}); }
+  else if(a==="deliv") set({delivery:v});
+  else if(a==="advFu"){ if(S.fu<KFU.length-1) set({fu:S.fu+1}); }
+  else if(a==="filter") set({hFilter:v});
+  else if(a==="hsel") set({hSel:+v});
+});
+document.addEventListener("change", function(e){ if(e.target.getAttribute("data-a")==="consent") set({consent:e.target.checked}); });
+(function(){
+  var q=(location.search+location.hash).toLowerCase();
+  if(/hosp|hospital/.test(q)) S.view="hosp";
+  if(/lang=en|[#&?]en\b/.test(q)) S.lang="en";
+})();
+render();
+</script>
+</body>
+</html>
