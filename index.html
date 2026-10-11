@@ -107,6 +107,7 @@ var T = {
     scanTitle:"יישרו את המסמך בתוך המסגרת", capture:"צילום", readingTitle:"קוראים את המסמך…", readingSteps:["מזהים תרופות","מזהים בדיקות ותורים","בודקים הפניות","מסמנים סימני אזהרה"],
     reviewTitle:"זה מה שמצאנו", reviewSub:"בדקו שהכול נכון. שום דבר לא נשלח בלי אישורכם.", secMeds:"תרופות", secTests:"בדיקות ותורים", secRef:"הפניה", secWarn:"מתי לפנות מיד למיון",
     tagNew:"חדש", tagChanged:"שינוי מינון", tagStop:"להפסיק", askNurse:"משהו לא ברור? שאלו אחות", nurseSent:"השאלה נשלחה לצוות הסיעודי בגבעון. תשובה עד סוף היום.",
+    corrBtn:"צריך לתקן משהו", corrTitle:"מה צריך לתקן?", corrHint:"כתבו במילים שלכם מה לא נקרא נכון. נקרא שוב את המסמך כדי לוודא, ולא נשנה שום דבר רק על סמך ההערה.", corrPh:"לדוגמה: כתוב אקו לב, אבל הרופא ביקש אקו לב במאמץ", corrEx:"דוגמאות:", corrGo:"קריאה חוזרת של המסמך", cancel2:"ביטול", corrReading:"קוראים שוב את המסמך מול ההערה שלך…", corrUpd:"קראנו שוב ומצאנו את זה במסמך. עדכנו למטה וגם במכתב לרופא המשפחה.", tagUpd:"עודכן", corrKept:"בדקנו שוב: במסמך כתוב בעוד 6 שבועות, אז השארנו כך. אם משהו עדיין לא ברור, אפשר לשאול אחות.", corrUnclearT:"לא הצלחנו למצוא את זה במסמך", corrUnclear:"ייתכן שהחלק הזה בתמונה לא ברור. צלמו שוב, או השאירו את ההערה ונבקש אישור מהמרפאה.", corrRetake:"צילום חוזר, ברור יותר", corrKeep:"להשאיר את ההערה לאישור המרפאה", corrNoted:"ההערה שלך נוספה כ'לאישור'. נבקש אישור מהמרפאה לפני שנפעל לפיה.", corrRetook:"התמונה החדשה נקראה, ועדיין לא מצאנו את זה. ", tagConfirm:"לאישור", yourNote:"ההערה שלך: ", reCorr:"תיקון נוסף",
     consent:"אני מאשר/ת לשתף את המסמך עם קופת החולים שלי ועם רופא המשפחה", confirm:"הכול נכון, בואו נתחיל",
     planTitle:"התוכנית שלך", nextLabel:"הצעד הבא:", allDone:"כל הצעדים הושלמו. נמשיך לעקוב ולהזכיר.", familyNote:"שרה (בת) רואה את התוכנית ויכולה לאשר צעדים בשמך.",
     trT17:"הפניה וטופס 17", trRx:"בית מרקחת", pillNeeds:"ממתין לאישורך", pillWait:"ממתין לאחרים", pillDone:"הושלם",
@@ -145,6 +146,7 @@ var T = {
     scanTitle:"Line the document up inside the frame", capture:"Capture", readingTitle:"Reading the document…", readingSteps:["Finding medications","Finding tests and appointments","Checking referrals","Marking warning signs"],
     reviewTitle:"Here is what we found", reviewSub:"Check it is right. Nothing is sent without your approval.", secMeds:"Medications", secTests:"Tests and appointments", secRef:"Referral", secWarn:"Go to the ER straight away if",
     tagNew:"New", tagChanged:"Dose changed", tagStop:"Stop", askNurse:"Something unclear? Ask a nurse", nurseSent:"Your question went to the Givon nursing team. Reply by end of day.",
+    corrBtn:"Make corrections", corrTitle:"What needs correcting?", corrHint:"Tell us in your own words what was read wrong. We re-read the document to check it, and nothing changes on your note alone.", corrPh:"For example: it says echocardiogram, but the doctor asked for a stress echo", corrEx:"Examples:", corrGo:"Re-read the document", cancel2:"Cancel", corrReading:"Re-reading the document against your note…", corrUpd:"We re-read it and found this in the document. Updated below and in the letter to your family doctor.", tagUpd:"Updated", corrKept:"We checked again: the document says in 6 weeks, so we kept it. If you are still unsure, ask a nurse.", corrUnclearT:"We could not find this in the document", corrUnclear:"That part of the photo may be unclear. Take a clearer photo, or keep your note and we will ask the clinic to confirm.", corrRetake:"Take a clearer photo", corrKeep:"Keep my note for the clinic to confirm", corrNoted:"Your note was added as 'to confirm'. We will check with the clinic before acting on it.", corrRetook:"The new photo was read and we still could not find it. ", tagConfirm:"To confirm", yourNote:"Your note: ", reCorr:"Another correction",
     consent:"I agree to share this document with my kupa and my family doctor", confirm:"All correct, let's start",
     planTitle:"Your plan", nextLabel:"Next:", allDone:"Every step is done. We will keep tracking and reminding.", familyNote:"Sarah (daughter) can see this plan and approve steps for you.",
     trT17:"Referral and Tofes 17", trRx:"Pharmacy", pillNeeds:"Needs your OK", pillWait:"Waiting on others", pillDone:"Done",
@@ -182,6 +184,16 @@ var T = {
 function med(t, name, note, kind){ return {name:name, note:note, kind:kind, tag: kind==="new"?t.tagNew:kind==="changed"?t.tagChanged:t.tagStop}; }
 
 function data(flow, lang){
+  var d=data0(flow,lang), he=lang==="he";
+  if(!d||!d.tests) return d;
+  if(flow==="ext"&&S.corrFix){
+    var f=he?function(x){return String(x).split("אקו לב").join("אקו לב במאמץ");}:function(x){return String(x).split("an echocardiogram").join("a stress echocardiogram").split("Echocardiogram").join("Stress echocardiogram");};
+    d.tests[0]=[f(d.tests[0][0]),d.tests[0][1],"upd"]; d.refText=f(d.refText); if(d.letterBody) d.letterBody=f(d.letterBody); if(d.t17Fields) d.t17Fields[0]=[d.t17Fields[0][0],f(d.t17Fields[0][1])]; if(d.slotsWhere) d.slotsWhere=f(d.slotsWhere);
+  }
+  if(S.corrNote) d.tests.push([T[lang].yourNote+S.corrNote,"","note"]);
+  return d;
+}
+function data0(flow, lang){
   var t=T[lang], he=lang==="he";
   if(flow==="dis") return {
     docName: he?"מכתב שחרור · גבעון, פנימית ב׳":"Discharge letter · Givon, internal medicine",
@@ -246,7 +258,7 @@ var BTLK=["found","gaps","waitDocs","advisor","waitAdvisor","submit","waitBtl","
 NEEDS.found=1; NEEDS.gaps=1; NEEDS.advisor=1; NEEDS.submit=1; DONE.committee=1;
 var BACK={btl:"home",pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
 
-var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}};
+var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false};
 
 var DOW={he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
 var MON={he:["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
@@ -335,13 +347,25 @@ function appScreen(){
     h+='</ul></div>'; break;
   case "review":
     h+='<div class="screen"><div style="display:flex;flex-direction:column;gap:6px"><h1>'+t.reviewTitle+'</h1><p class="muted">'+esc(d.docName)+' · '+t.reviewSub+'</p></div>';
+    if(S.corr==="updated") h+='<div class="okbox" style="font-size:14px;line-height:1.5">'+t.corrUpd+'</div>';
+    if(S.corr==="kept") h+='<div class="card" style="font-size:14px;line-height:1.5;background:#F4F5F2">'+t.corrKept+'</div>';
+    if(S.corr==="noted") h+='<div class="okbox" style="font-size:14px;line-height:1.5">'+(S.corrRetook?t.corrRetook:'')+t.corrNoted+'</div>';
     h+='<section class="card"><h2>'+t.secMeds+'</h2>'; d.meds.forEach(function(m){h+='<div class="row"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:500">'+esc(m.name)+'</span><span class="small muted">'+esc(m.note)+'</span></div><span class="tag '+m.kind+'">'+m.tag+'</span></div>';}); h+='</section>';
-    h+='<section class="card"><h2>'+t.secTests+'</h2>'; d.tests.forEach(function(x){h+='<div class="row" style="font-size:14px"><span style="font-weight:500">'+esc(x[0])+'</span><span class="muted">'+esc(x[1])+'</span></div>';}); h+='</section>';
+    h+='<section class="card"><h2>'+t.secTests+'</h2>'; d.tests.forEach(function(x){var tg=x[2]==="upd"?'<span class="tag changed">'+t.tagUpd+'</span>':x[2]==="note"?'<span class="tag stop">'+t.tagConfirm+'</span>':'';h+='<div class="row" style="font-size:14px;align-items:center;gap:8px"><span style="font-weight:500">'+esc(x[0])+'</span><span style="display:flex;gap:8px;align-items:center;flex-shrink:0"><span class="muted">'+esc(x[1])+'</span>'+tg+'</span></div>';}); h+='</section>';
     h+='<section class="card" style="gap:6px"><h2>'+t.secRef+'</h2><p style="font-size:14px;line-height:1.5">'+esc(d.refText)+'</p></section>';
     h+='<section class="warnbox"><h2 style="color:#8A3F06">'+t.secWarn+'</h2>'; d.warning.forEach(function(w){h+='<p style="font-size:14px;line-height:1.5">'+esc(w)+'</p>';}); h+='</section>';
     if(d.hasNurse) h+= S.nurseAsked ? '<div class="okbox" style="font-size:14px">'+t.nurseSent+'</div>' : '<button type="button" class="secondary" data-a="nurse">'+t.askNurse+'</button>';
+    if(S.corr==="edit"){
+      var ex=S.flow==="ext"?(S.lang==="he"?["כתוב אקו לב, אבל הרופא ביקש אקו לב במאמץ","המינון של אטורבסטטין הוא 40 מ״ג, לא 20"]:["It says echocardiogram, but the doctor asked for an echo with a stress test","The atorvastatin dose is 40 mg, not 20"]):(S.lang==="he"?["צילום החזה צריך להיות בעוד 4 שבועות, לא 6","אוגמנטין צריך להיות 3 פעמים ביום"]:["The chest X-ray should be in 4 weeks, not 6","Augmentin should be 3 times a day"]);
+      h+='<section class="card" id="corrCard"><h2>'+t.corrTitle+'</h2><p class="small muted" style="line-height:1.5">'+t.corrHint+'</p><textarea rows="3" data-in="corr" placeholder="'+esc(t.corrPh)+'">'+esc(S.corrText)+'</textarea><span class="small muted">'+t.corrEx+'</span><div style="display:flex;flex-direction:column;gap:6px">';
+      ex.forEach(function(e){h+='<button type="button" class="timechip" data-a="corrEx" data-v="'+esc(e)+'" style="text-align:start;white-space:normal;line-height:1.4;padding:8px 12px">'+esc(e)+'</button>';});
+      h+='</div><button type="button" class="primary" data-a="corrGo">'+t.corrGo+'</button><button type="button" class="secondary" data-a="corrCancel">'+t.cancel2+'</button></section></div>'; break;
+    }
+    if(S.corr==="reading"){ h+='<section class="card" style="align-items:center;padding:20px;gap:14px"><div class="spinner" style="width:40px;height:40px;border-width:4px"></div><span style="font-size:15px">'+t.corrReading+'</span><span class="small muted" style="font-style:italic">"'+esc(S.corrText)+'"</span></section></div>'; break; }
+    if(S.corr==="unclear"){ h+='<section class="warnbox"><h2 style="color:#8A3F06">'+t.corrUnclearT+'</h2><p style="font-size:14px;line-height:1.5;font-style:italic">"'+esc(S.corrText)+'"</p><p style="font-size:14px;line-height:1.5">'+t.corrUnclear+'</p></section><button type="button" class="primary" data-a="corrRetake">'+t.corrRetake+'</button><button type="button" class="secondary" data-a="corrKeep">'+t.corrKeep+'</button></div>'; break; }
     h+='<label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;cursor:pointer;padding:4px 0"><input type="checkbox" data-a="consent" '+(S.consent?'checked':'')+' style="width:22px;height:22px;margin:0;accent-color:#0F6E6A;flex-shrink:0"><span>'+t.consent+'</span></label>';
-    h+='<button type="button" class="primary" data-a="confirm" '+(S.consent?'':'disabled')+'>'+t.confirm+'</button></div>'; break;
+    h+='<button type="button" class="primary" data-a="confirm" '+(S.consent?'':'disabled')+'>'+t.confirm+'</button>';
+    h+='<button type="button" class="secondary" data-a="corrOpen">'+(S.corr?t.reCorr:t.corrBtn)+'</button></div>'; break;
   case "plan":
     h+='<div class="screen"><div style="display:flex;flex-direction:column;gap:8px"><h1>'+t.planTitle+'</h1><p class="muted">'+esc(d.docName)+'</p>'+progress+'</div>';
     if(done===total) h+='<div class="okbox" style="font-size:15px;font-weight:500">'+t.allDone+'</div>';
@@ -457,15 +481,25 @@ document.addEventListener("click", function(e){
   else if(a==="lang") set({lang:S.lang==="he"?"en":"he"});
   else if(a==="go") set({screen:v});
   else if(a==="back") set({screen:BACK[S.screen]||"home"});
-  else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}});
+  else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false});
   else if(a==="advBtl"){ if(S.btl<BTLK.length-1) set({btl:S.btl+1}); }
   else if(a==="fuEdit") set({fuEdit:+v,fuDay:null,fuTime:null});
   else if(a==="fuDay") set({fuDay:v});
   else if(a==="fuTime") set({fuTime:v});
   else if(a==="fuCancel") set({fuEdit:-1,fuDay:null,fuTime:null});
   else if(a==="fuSave"){ var it=data(flow,S.lang).fuItems[S.fuEdit], cur=fuCurrent(it,S.fuEdit), o={}; for(var k in S.fuOverride) o[k]=S.fuOverride[k]; var n={iso:S.fuDay||cur.iso,time:S.fuTime||cur.time}; if(n.iso!==it.iso||n.time!==it.time) o[S.fuEdit]=n; else delete o[S.fuEdit]; set({fuOverride:o,fuEdit:-1,fuDay:null,fuTime:null}); }
-  else if(a==="capture"){ set({screen:"reading"}); setTimeout(function(){ if(S.screen==="reading") set({screen:"review"}); },2200); }
+  else if(a==="capture"){ set({screen:"reading"}); setTimeout(function(){ if(S.screen==="reading"){ if(S.corrRetake) set({screen:"review",corrRetake:false,corr:"noted",corrNote:S.corrText,corrRetook:true}); else set({screen:"review"}); } },2200); }
   else if(a==="nurse") set({nurseAsked:true});
+  else if(a==="corrOpen"){ set({corr:"edit",corrText:""}); var c=document.getElementById("corrCard"); if(c){ c.scrollIntoView({block:"start"}); } }
+  else if(a==="corrEx") set({corrText:v});
+  else if(a==="corrCancel") set({corr:""});
+  else if(a==="corrGo"){ var tx=(S.corrText||"").trim(); if(!tx){ var ta=document.querySelector("[data-in=corr]"); if(ta) ta.focus(); return; }
+    set({corr:"reading",corrText:tx}); setTimeout(function(){ if(S.corr!=="reading") return;
+      if(flow==="ext"&&/stress|מאמץ/i.test(tx)) set({corr:"updated",corrFix:true});
+      else if(flow==="dis"&&/x-?ray|צילום/i.test(tx)) set({corr:"kept"});
+      else set({corr:"unclear"}); },2000); }
+  else if(a==="corrRetake") set({corrRetake:true,corr:"",screen:"scan"});
+  else if(a==="corrKeep") set({corr:"noted",corrNote:S.corrText,corrRetook:false});
   else if(a==="confirm"){ if(S.consent) set({planned:true,screen:"plan"}); }
   else if(a==="adv17"){ if(S.t17<K17[flow].length-1) set({t17:S.t17+1}); }
   else if(a==="slot") set({slot:+v});
@@ -476,6 +510,7 @@ document.addEventListener("click", function(e){
   else if(a==="filter") set({hFilter:v});
   else if(a==="hsel") set({hSel:+v});
 });
+document.addEventListener("input", function(e){ if(e.target.getAttribute("data-in")==="corr") S.corrText=e.target.value; });
 document.addEventListener("change", function(e){ if(e.target.getAttribute("data-a")==="consent") set({consent:e.target.checked}); });
 (function(){
   var q=(location.search+location.hash).toLowerCase();
