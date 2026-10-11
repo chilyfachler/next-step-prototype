@@ -120,6 +120,19 @@ var T = {
     approveOrder:"אישור ההזמנה", orderedTitle:"ההזמנה אושרה", remTitle:"תזכורות שנקבעו",
     fuTitle:"בחרנו מועדים שמתאימים ליומן שלך", fuSub:"אפשר לשנות כל מועד, ואז לאשר את כולם.", approveAll:"אישור כל המועדים", fuBookedTitle:"כל התורים נקבעו",
     changeTime:"שינוי מועד", pickDay:"בחרו יום", pickTime:"בחרו שעה", save:"שמירה", cancel:"ביטול", changedTag:"שונה", closedNote:"ימי שישי ושבת סגורים",
+    b:{ home:"בדיקת זכויות בביטוח לאומי", homeSub:"נבנה תביעה מהמסמכים שכבר צילמתם", label:"זכויות · ביטוח לאומי", stepOf:function(i,n){return "שלב "+i+" מתוך "+n;},
+      foundTitle:"ייתכן שאתם זכאים לקצבת נכות כללית", foundSub:"מצאנו 14 מסמכים רפואיים מינואר 2025 עד היום.", caveat:"זו לא החלטה. יועץ זכויות בודק את הזכאות לפני שמשהו מוגש.",
+      conds:[["מחלת לב (קרדיולוגיה)","6 מסמכים"],["ברך ימין (אורתופדיה)","5 מסמכים"],["ריאות (אשפוז, אוקטובר 2026)","3 מסמכים"]], build:"בנו לי את התביעה",
+      gapsTitle:"בדקנו את התיק מול רשימת ביטוח לאומי", gapsSub:"השוואה לרשימת המסמכים המומלצים שביטוח לאומי מפרסם לכל אבחנה.",
+      checks:[[1,"סיכומי אשפוז"],[1,"סיכום קרדיולוג"],[0,"אקו לב מהחצי שנה האחרונה"],[0,"סיכום אורתופד עדכני"],[1,"רשימת תרופות עדכנית"]], have:"יש", missing:"חסר",
+      reqTitle:"בקשות למסמכים החסרים", reqs:["אל ד״ר [קרדיולוג]: בקשה לאקו לב עדכני","אל ד״ר [אורתופד]: בקשה לסיכום מצב עדכני"], reqHint:"הבקשות יישלחו דרך הקופה רק אחרי אישורכם.", approveReqs:"אישור ושליחת הבקשות",
+      waitDocsTitle:"הבקשות נשלחו לרופאים", waitDocsBody:"נעקוב ונזכיר לרופאים אם צריך. נעדכן כשהמסמכים יגיעו.", simDocs:"הדגמה: הרופאים שלחו את המסמכים",
+      completeTitle:"התיק מלא", advisorTitle:"בדיקה של יועץ זכויות", advisorName:"[שם היועץ], יועץ זכויות שותף", advisorBody:"היועץ בודק זכאות, אחוזי נכות אפשריים ואת הדרך הנכונה להגיש.", advisorFee:"שכר טרחה: [X]% מהקצבה, רק אם התביעה מאושרת", sendAdvisor:"אישור ושליחה ליועץ",
+      waitAdvTitle:"התיק אצל היועץ", waitAdvBody:"בדרך כלל תשובה תוך כמה ימי עבודה.", simAdv:"הדגמה: היועץ המליץ להגיש",
+      submitTitle:"התביעה מוכנה להגשה", advisorNote:"״התיק מלא ותומך בתביעה. ממליץ להגיש.״ [שם היועץ]", packTitle:"מה מוכן", pack:["טופס תביעה לנכות כללית, מולא מראש","16 מסמכים רפואיים, ממוינים לפי תאריך","מכתב מלווה מהיועץ"],
+      submitNote:"את התביעה מגישים באזור האישי בביטוח לאומי. הכנו הכול, אתם חותמים ומעלים.", openArea:"פתיחת האזור האישי (הדגמה)", submitted:"אישרתי שהגשתי",
+      waitBtlTitle:"התביעה התקבלה בביטוח לאומי", waitBtlBody:"נעקוב אחרי הסטטוס ונעדכן כשייקבע מועד לוועדה הרפואית.", simBtl:"הדגמה: נקבע מועד לוועדה",
+      commTitle:"ועדה רפואית נקבעה", commDate:"יום ג׳, 15 בדצמבר · 10:30 · [סניף ביטוח לאומי]", prepTitle:"הכנה לוועדה", prep:["להביא את כל המסמכים המקוריים","רשימת תרופות והגבלות יומיומיות (הכנו טיוטה)","אפשר להגיע עם בן/בת משפחה","אם התביעה תידחה, נעקוב אחרי מועד הערעור ונעביר ליועץ"], addCal:"הוספה ליומן" },
     next:{letter:"לאשר מכתב לרופא",waitGP:"ממתינים לרופא המשפחה",approve:"לאשר בקשת טופס 17",waitKupa:"ממתינים לאישור נווה",slots:"לבחור מועד",booked:"התור נקבע",req:"לאשר בקשת מרשם",wait:"ממתינים למרשם",order:"לאשר הזמנה",ordered:"הוזמן, תזכורות פעילות",fuslots:"לאשר מועדים",fubooked:"כל התורים נקבעו"},
     progress:function(d,t){return d+" מתוך "+t+" צעדים הושלמו";},
     hTitle:"גבעון · מעקב אחרי שחרור", hSub:"מטופלים ששוחררו בשבוע האחרון ומצב התוכנית שלהם", sample:"נתוני דוגמה",
@@ -145,6 +158,19 @@ var T = {
     approveOrder:"Approve the order", orderedTitle:"Order approved", remTitle:"Reminders set",
     fuTitle:"We picked times that fit your diary", fuSub:"Change any time you like, then approve them all.", approveAll:"Approve all times", fuBookedTitle:"All appointments booked",
     changeTime:"Change time", pickDay:"Pick a day", pickTime:"Pick a time", save:"Save", cancel:"Cancel", changedTag:"Changed", closedNote:"Closed Friday and Saturday",
+    b:{ home:"Check your Bituach Leumi rights", homeSub:"We build a claim from documents you have already scanned", label:"Rights · Bituach Leumi", stepOf:function(i,n){return "Step "+i+" of "+n;},
+      foundTitle:"You may be entitled to a general disability benefit", foundSub:"We found 14 medical documents from January 2025 to today.", caveat:"This is not a decision. A rights advisor checks eligibility before anything is filed.",
+      conds:[["Heart condition (cardiology)","6 documents"],["Right knee (orthopaedics)","5 documents"],["Lungs (hospital stay, October 2026)","3 documents"]], build:"Build my claim",
+      gapsTitle:"We checked your file against Bituach Leumi's list", gapsSub:"Compared with the recommended documents Bituach Leumi publishes for each diagnosis.",
+      checks:[[1,"Hospital discharge summaries"],[1,"Cardiologist summary"],[0,"Echocardiogram from the last 6 months"],[0,"Recent orthopaedic summary"],[1,"Current medication list"]], have:"Have", missing:"Missing",
+      reqTitle:"Requests for the missing documents", reqs:["To Dr [cardiologist]: request for a recent echocardiogram","To Dr [orthopaedist]: request for an up-to-date summary"], reqHint:"Requests are sent through your kupa only after you approve them.", approveReqs:"Approve and send the requests",
+      waitDocsTitle:"Requests sent to your doctors", waitDocsBody:"We track them and remind the doctors if needed. We tell you when the documents arrive.", simDocs:"Demo: doctors send the documents",
+      completeTitle:"Your file is complete", advisorTitle:"Review by a rights advisor", advisorName:"[Advisor name], partner rights advisor", advisorBody:"The advisor checks eligibility, possible disability percentage and the right way to file.", advisorFee:"Fee: [X]% of the benefit, only if the claim is approved", sendAdvisor:"Approve and send to the advisor",
+      waitAdvTitle:"Your file is with the advisor", waitAdvBody:"Usually a reply within a few working days.", simAdv:"Demo: advisor recommends filing",
+      submitTitle:"Your claim is ready to file", advisorNote:"\"The file is complete and supports the claim. I recommend filing.\" [Advisor name]", packTitle:"What is ready", pack:["General disability claim form, pre-filled","16 medical documents, in date order","Cover letter from the advisor"],
+      submitNote:"You file the claim in your Bituach Leumi personal area. We have prepared everything; you sign and upload.", openArea:"Open personal area (demo)", submitted:"I have submitted the claim",
+      waitBtlTitle:"Bituach Leumi has received the claim", waitBtlBody:"We track the status and tell you when the medical committee date is set.", simBtl:"Demo: committee date is set",
+      commTitle:"Medical committee scheduled", commDate:"Tue 15 Dec · 10:30 · [Bituach Leumi branch]", prepTitle:"Getting ready for the committee", prep:["Bring all original documents","A list of medications and daily limitations (we drafted one)","You can come with a family member","If the claim is refused, we track the appeal deadline and pass it to the advisor"], addCal:"Add to calendar" },
     next:{letter:"Approve letter to GP",waitGP:"Waiting for your GP",approve:"Approve Tofes 17 request",waitKupa:"Waiting for Naveh",slots:"Pick a time",booked:"Appointment booked",req:"Approve prescription request",wait:"Waiting for prescription",order:"Approve the order",ordered:"Ordered, reminders on",fuslots:"Approve times",fubooked:"All booked"},
     progress:function(d,t){return d+" of "+t+" steps done";},
     hTitle:"Givon · Discharge follow-up", hSub:"Patients discharged in the last week and where their plan stands", sample:"Sample data",
@@ -216,9 +242,11 @@ var ROWS = [
 var K17={dis:["approve","waitKupa","slots","booked"],ext:["letter","waitGP","approve","waitKupa","slots","booked"]};
 var KRX=["req","wait","order","ordered"], KFU=["slots","booked"];
 var NEEDS={letter:1,approve:1,slots:1,req:1,order:1}, DONE={booked:1,ordered:1};
-var BACK={pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
+var BTLK=["found","gaps","waitDocs","advisor","waitAdvisor","submit","waitBtl","committee"];
+NEEDS.found=1; NEEDS.gaps=1; NEEDS.advisor=1; NEEDS.submit=1; DONE.committee=1;
+var BACK={btl:"home",pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
 
-var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}};
+var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}};
 
 var DOW={he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
 var MON={he:["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
@@ -261,7 +289,40 @@ function appScreen(){
     h+='<button type="button" data-a="go" data-v="pick" style="min-height:120px;border:2px dashed #0F6E6A;border-radius:18px;background:#FFFFFF;color:#0F6E6A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:18px;font-weight:600">'+t.scanBtn+'</span></button>';
     h+='<div style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:16px">'+t.myPlans+'</h2>';
     h+= S.planned ? '<button type="button" class="trackbtn" data-a="go" data-v="plan"><span style="font-weight:600">'+esc(d.docName)+'</span>'+progress+'</button>' : '<div class="card muted">'+t.noPlans+'</div>';
-    h+='</div></div>'; break;
+    h+='</div>';
+    h+='<button type="button" class="trackbtn" data-a="go" data-v="btl"><span class="row" style="width:100%;align-items:center"><span style="display:flex;gap:10px;align-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F6E6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg><span style="font-size:16px;font-weight:600">'+t.b.home+'</span></span>'+(S.btl>0?pill(t,BTLK[S.btl]):'')+'</span><span class="muted">'+t.b.homeSub+'</span></button>';
+    h+='</div>'; break;
+  case "btl":
+    var b=t.b, kb=BTLK[S.btl];
+    h+='<div class="screen"><div style="display:flex;flex-direction:column;gap:6px"><p class="small" style="font-weight:500;color:#0F6E6A">'+b.label+' · '+b.stepOf(Math.min(S.btl+1,BTLK.length),BTLK.length)+'</p><div class="bar"><i style="width:'+Math.round(S.btl/(BTLK.length-1)*100)+'%"></i></div></div>';
+    if(kb==="found"){
+      h+='<h1>'+b.foundTitle+'</h1><p class="muted">'+b.foundSub+'</p><div class="card" style="padding:4px 16px;gap:0">';
+      b.conds.forEach(function(c){h+='<div class="field" style="flex-direction:row;justify-content:space-between"><span style="font-size:15px;color:#1C1F1D;font-weight:500">'+c[0]+'</span><span class="small muted">'+c[1]+'</span></div>';});
+      h+='</div><div class="warnbox" style="font-size:14px">'+b.caveat+'</div><button type="button" class="primary" data-a="advBtl">'+b.build+'</button>';
+    } else if(kb==="gaps"){
+      h+='<h1 style="font-size:19px">'+b.gapsTitle+'</h1><p class="muted">'+b.gapsSub+'</p><div class="card" style="padding:4px 16px;gap:0">';
+      b.checks.forEach(function(c){h+='<div class="field" style="flex-direction:row;justify-content:space-between;align-items:center"><span style="font-size:14px;color:#1C1F1D">'+c[1]+'</span><span class="tag '+(c[0]?'new':'stop')+'">'+(c[0]?b.have:b.missing)+'</span></div>';});
+      h+='</div><h2 style="font-size:16px">'+b.reqTitle+'</h2>';
+      b.reqs.forEach(function(r){h+='<div class="card" style="font-size:14px">'+r+'</div>';});
+      h+='<p class="small muted">'+b.reqHint+'</p><button type="button" class="primary" data-a="advBtl">'+b.approveReqs+'</button>';
+    } else if(kb==="waitDocs"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitDocsTitle+'</span><span class="muted">'+b.waitDocsBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simDocs+'</button>';
+    } else if(kb==="advisor"){
+      h+='<div class="okbox"><span class="head">'+b.completeTitle+'</span></div><h1 style="font-size:19px">'+b.advisorTitle+'</h1><div class="card"><span style="font-size:15px;font-weight:600">'+b.advisorName+'</span><span class="muted">'+b.advisorBody+'</span><span class="small" style="font-weight:500">'+b.advisorFee+'</span></div><button type="button" class="primary" data-a="advBtl">'+b.sendAdvisor+'</button>';
+    } else if(kb==="waitAdvisor"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitAdvTitle+'</span><span class="muted">'+b.waitAdvBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simAdv+'</button>';
+    } else if(kb==="submit"){
+      h+='<h1 style="font-size:19px">'+b.submitTitle+'</h1><div class="okbox" style="font-size:14px;line-height:1.5">'+b.advisorNote+'</div><h2 style="font-size:16px">'+b.packTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
+      b.pack.forEach(function(p){h+='<div class="field" style="flex-direction:row;gap:10px;align-items:center">'+CHECK+'<span style="font-size:14px;color:#1C1F1D">'+p+'</span></div>';});
+      h+='</div><p class="muted">'+b.submitNote+'</p><button type="button" class="secondary">'+b.openArea+'</button><button type="button" class="primary" data-a="advBtl">'+b.submitted+'</button>';
+    } else if(kb==="waitBtl"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitBtlTitle+'</span><span class="muted">'+b.waitBtlBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simBtl+'</button>';
+    } else {
+      h+='<div class="okbox"><span style="font-size:18px;font-weight:600">'+b.commTitle+'</span><span style="font-size:15px">'+b.commDate+'</span></div><h2 style="font-size:16px">'+b.prepTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
+      b.prep.forEach(function(p){h+='<div class="field" style="font-size:14px;color:#1C1F1D">'+p+'</div>';});
+      h+='</div><button type="button" class="secondary">'+b.addCal+'</button><button type="button" class="secondary" data-a="go" data-v="home">'+t.back+'</button>';
+    }
+    h+='</div>'; break;
   case "pick":
     h+='<div class="screen" style="padding:24px 20px"><h1>'+t.pickTitle+'</h1><p class="muted">'+t.pickNote+'</p>';
     h+='<button type="button" class="docbtn" data-a="start" data-v="dis"><span class="docicon"><i></i><i></i><i></i><i style="width:60%"></i></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:600">'+t.optDis+'</span><span class="small muted">'+t.optDisSub+'</span></span></button>';
@@ -397,6 +458,7 @@ document.addEventListener("click", function(e){
   else if(a==="go") set({screen:v});
   else if(a==="back") set({screen:BACK[S.screen]||"home"});
   else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{}});
+  else if(a==="advBtl"){ if(S.btl<BTLK.length-1) set({btl:S.btl+1}); }
   else if(a==="fuEdit") set({fuEdit:+v,fuDay:null,fuTime:null});
   else if(a==="fuDay") set({fuDay:v});
   else if(a==="fuTime") set({fuTime:v});
