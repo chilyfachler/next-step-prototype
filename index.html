@@ -122,18 +122,20 @@ var T = {
     fuTitle:"בחרנו מועדים שמתאימים ליומן שלך", fuSub:"אפשר לשנות כל מועד, ואז לאשר את כולם.", approveAll:"אישור כל המועדים", fuBookedTitle:"כל התורים נקבעו",
     changeTime:"שינוי מועד", pickDay:"בחרו יום", pickTime:"בחרו שעה", save:"שמירה", cancel:"ביטול", changedTag:"שונה", closedNote:"ימי שישי ושבת סגורים",
     b:{ home:"בדיקת זכויות בביטוח לאומי", homeSub:"נבנה תביעה מהמסמכים שכבר צילמתם", label:"זכויות · ביטוח לאומי", stepOf:function(i,n){return "שלב "+i+" מתוך "+n;},
-      foundTitle:"ייתכן שאתם זכאים לקצבת נכות כללית", foundSub:"מצאנו 14 מסמכים רפואיים מינואר 2025 עד היום.", caveat:"זו לא החלטה. יועץ זכויות בודק את הזכאות לפני שמשהו מוגש.",
+      foundTitle:"ייתכן שאתם זכאים לקצבת נכות כללית", foundSub:"מצאנו 14 מסמכים רפואיים מינואר 2025 עד היום.", caveat:"זו לא החלטה. הוועדה הרפואית של ביטוח לאומי מחליטה. אנחנו עוזרים להגיש תיק מלא וברור.",
       conds:[["מחלת לב (קרדיולוגיה)","6 מסמכים"],["ברך ימין (אורתופדיה)","5 מסמכים"],["ריאות (אשפוז, אוקטובר 2026)","3 מסמכים"]], build:"בנו לי את התביעה",
       gapsTitle:"בדקנו את התיק מול רשימת ביטוח לאומי", gapsSub:"השוואה לרשימת המסמכים המומלצים שביטוח לאומי מפרסם לכל אבחנה.",
       checks:[[1,"סיכומי אשפוז"],[1,"סיכום קרדיולוג"],[0,"אקו לב מהחצי שנה האחרונה"],[0,"סיכום אורתופד עדכני"],[1,"רשימת תרופות עדכנית"]], have:"יש", missing:"חסר",
       reqTitle:"בקשות למסמכים החסרים", reqs:["אל ד״ר [קרדיולוג]: בקשה לאקו לב עדכני","אל ד״ר [אורתופד]: בקשה לסיכום מצב עדכני"], reqHint:"הבקשות יישלחו דרך הקופה רק אחרי אישורכם.", approveReqs:"אישור ושליחת הבקשות",
       waitDocsTitle:"הבקשות נשלחו לרופאים", waitDocsBody:"נעקוב ונזכיר לרופאים אם צריך. נעדכן כשהמסמכים יגיעו.", simDocs:"הדגמה: הרופאים שלחו את המסמכים",
-      completeTitle:"התיק מלא", advisorTitle:"בדיקה של יועץ זכויות", advisorName:"[שם היועץ], יועץ זכויות שותף", advisorBody:"היועץ בודק זכאות, אחוזי נכות אפשריים ואת הדרך הנכונה להגיש.", advisorFee:"שכר טרחה: [X]% מהקצבה, רק אם התביעה מאושרת", sendAdvisor:"אישור ושליחה ליועץ",
-      waitAdvTitle:"התיק אצל היועץ", waitAdvBody:"בדרך כלל תשובה תוך כמה ימי עבודה.", simAdv:"הדגמה: היועץ המליץ להגיש",
-      submitTitle:"התביעה מוכנה להגשה", advisorNote:"״התיק מלא ותומך בתביעה. ממליץ להגיש.״ [שם היועץ]", packTitle:"מה מוכן", pack:["טופס תביעה לנכות כללית, מולא מראש","16 מסמכים רפואיים, ממוינים לפי תאריך","מכתב מלווה מהיועץ"],
+      completeTitle:"התיק מלא", gpLetTitle:"מכתב סיכום מרופא המשפחה", gpLetWhy:"ביטוח לאומי מצפה למכתב סיכום קצר מרופא המשפחה. ניסחנו טיוטה מתוך 16 המסמכים שלך. ד״ר [שם] יבדוק, יתקן, יוסיף מה שחסר ויחתום.", gpLetTo:"לכבוד הוועדה הרפואית, ביטוח לאומי · הנדון: רבקה כהן, ת״ז [ ]",
+        gpLetLines:["1. אי ספיקת לב, EF 35% (אקו, [תאריך]). קוצר נשימה במאמץ קל.","2. שחיקה מתקדמת בברך ימין. הליכה מוגבלת לכ-100 מטר, נעזרת במקל.","3. אשפוז באוקטובר 2026 בשל דלקת ריאות. קשיי נשימה חוזרים.","מגבלות תפקודיות: אינה יכולה ללכת מרחקים ארוכים, זקוקה לעזרה בקניות ובעבודות הבית.","רשימת תרופות מצורפת. ד״ר [רופא המשפחה], מרפאת נווה [סניף]"],
+        gpLetNote:"טיוטה בלבד. משתמשים רק במה שכתוב במסמכים שלך. הניסוח משתפר ככל שרופאים מתקנים טיוטות.", sendGpLet:"אישור ושליחה לרופא לחתימה",
+      waitSignTitle:"הטיוטה אצל רופא המשפחה", waitSignBody:"הרופא בודק, מתקן וחותם. נזכיר לו אם צריך.", simSign:"הדגמה: הרופא תיקן וחתם",
+      submitTitle:"התביעה מוכנה להגשה", signedNote:"ד״ר [שם] חתם/ה על מכתב הסיכום (עם 2 תיקונים).", packTitle:"מה מוכן", pack:["טופס תביעה לנכות כללית, מולא מראש","מכתב סיכום מרופא המשפחה, חתום","16 מסמכים רפואיים, ממוינים לפי תאריך"],
       submitNote:"את התביעה מגישים באזור האישי בביטוח לאומי. הכנו הכול, אתם חותמים ומעלים.", openArea:"פתיחת האזור האישי (הדגמה)", submitted:"אישרתי שהגשתי",
       waitBtlTitle:"התביעה התקבלה בביטוח לאומי", waitBtlBody:"נעקוב אחרי הסטטוס ונעדכן כשייקבע מועד לוועדה הרפואית.", simBtl:"הדגמה: נקבע מועד לוועדה",
-      commTitle:"ועדה רפואית נקבעה", commDate:"יום ג׳, 15 בדצמבר · 10:30 · [סניף ביטוח לאומי]", prepTitle:"הכנה לוועדה", prep:["להביא את כל המסמכים המקוריים","רשימת תרופות והגבלות יומיומיות (הכנו טיוטה)","אפשר להגיע עם בן/בת משפחה","אם התביעה תידחה, נעקוב אחרי מועד הערעור ונעביר ליועץ"], addCal:"הוספה ליומן" },
+      commTitle:"ועדה רפואית נקבעה", commDate:"יום ג׳, 15 בדצמבר · 10:30 · [סניף ביטוח לאומי]", prepTitle:"הכנה לוועדה", prep:["להביא את כל המסמכים המקוריים","רשימת תרופות והגבלות יומיומיות (הכנו טיוטה)","אפשר להגיע עם בן/בת משפחה","אם התביעה תידחה, נעקוב אחרי מועד הערעור ונזכיר לך"], addCal:"הוספה ליומן" },
     next:{letter:"לאשר מכתב לרופא",waitGP:"ממתינים לרופא המשפחה",approve:"לאשר בקשת טופס 17",waitKupa:"ממתינים לאישור נווה",slots:"לבחור מועד",booked:"התור נקבע",req:"לאשר בקשת מרשם",wait:"ממתינים למרשם",order:"לאשר הזמנה",ordered:"הוזמן, תזכורות פעילות",fuslots:"לאשר מועדים",fubooked:"כל התורים נקבעו"},
     progress:function(d,t){return d+" מתוך "+t+" צעדים הושלמו";},
     hTitle:"גבעון · מעקב אחרי שחרור", hSub:"מטופלים ששוחררו בשבוע האחרון ומצב התוכנית שלהם", sample:"נתוני דוגמה",
@@ -161,18 +163,20 @@ var T = {
     fuTitle:"We picked times that fit your diary", fuSub:"Change any time you like, then approve them all.", approveAll:"Approve all times", fuBookedTitle:"All appointments booked",
     changeTime:"Change time", pickDay:"Pick a day", pickTime:"Pick a time", save:"Save", cancel:"Cancel", changedTag:"Changed", closedNote:"Closed Friday and Saturday",
     b:{ home:"Check your Bituach Leumi rights", homeSub:"We build a claim from documents you have already scanned", label:"Rights · Bituach Leumi", stepOf:function(i,n){return "Step "+i+" of "+n;},
-      foundTitle:"You may be entitled to a general disability benefit", foundSub:"We found 14 medical documents from January 2025 to today.", caveat:"This is not a decision. A rights advisor checks eligibility before anything is filed.",
+      foundTitle:"You may be entitled to a general disability benefit", foundSub:"We found 14 medical documents from January 2025 to today.", caveat:"This is not a decision. Bituach Leumi's medical committee decides. We help you file a complete, clear claim.",
       conds:[["Heart condition (cardiology)","6 documents"],["Right knee (orthopaedics)","5 documents"],["Lungs (hospital stay, October 2026)","3 documents"]], build:"Build my claim",
       gapsTitle:"We checked your file against Bituach Leumi's list", gapsSub:"Compared with the recommended documents Bituach Leumi publishes for each diagnosis.",
       checks:[[1,"Hospital discharge summaries"],[1,"Cardiologist summary"],[0,"Echocardiogram from the last 6 months"],[0,"Recent orthopaedic summary"],[1,"Current medication list"]], have:"Have", missing:"Missing",
       reqTitle:"Requests for the missing documents", reqs:["To Dr [cardiologist]: request for a recent echocardiogram","To Dr [orthopaedist]: request for an up-to-date summary"], reqHint:"Requests are sent through your kupa only after you approve them.", approveReqs:"Approve and send the requests",
       waitDocsTitle:"Requests sent to your doctors", waitDocsBody:"We track them and remind the doctors if needed. We tell you when the documents arrive.", simDocs:"Demo: doctors send the documents",
-      completeTitle:"Your file is complete", advisorTitle:"Review by a rights advisor", advisorName:"[Advisor name], partner rights advisor", advisorBody:"The advisor checks eligibility, possible disability percentage and the right way to file.", advisorFee:"Fee: [X]% of the benefit, only if the claim is approved", sendAdvisor:"Approve and send to the advisor",
-      waitAdvTitle:"Your file is with the advisor", waitAdvBody:"Usually a reply within a few working days.", simAdv:"Demo: advisor recommends filing",
-      submitTitle:"Your claim is ready to file", advisorNote:"\"The file is complete and supports the claim. I recommend filing.\" [Advisor name]", packTitle:"What is ready", pack:["General disability claim form, pre-filled","16 medical documents, in date order","Cover letter from the advisor"],
+      completeTitle:"Your file is complete", gpLetTitle:"Summary letter from your family doctor", gpLetWhy:"Bituach Leumi expects a short summary letter from your family doctor. We drafted one from your 16 documents. Dr [name] checks it, edits it, adds anything missing and signs.", gpLetTo:"To the medical committee, Bituach Leumi · Re: Rivka Cohen, ID [ ]",
+        gpLetLines:["1. Heart failure, EF 35% (echo, [date]). Short of breath on light exertion.","2. Advanced osteoarthritis, right knee. Walking limited to about 100 metres, uses a cane.","3. Admitted in October 2026 with pneumonia. Recurring difficulty breathing.","Daily limitations: cannot walk long distances, needs help with shopping and housework.","Medication list attached. Dr [family doctor], Naveh clinic [branch]"],
+        gpLetNote:"Draft only. Uses only what is in your documents. The wording improves as doctors edit drafts.", sendGpLet:"Approve and send to my GP to sign",
+      waitSignTitle:"The draft is with your family doctor", waitSignBody:"Your GP checks, edits and signs. We remind them if needed.", simSign:"Demo: GP edits and signs",
+      submitTitle:"Your claim is ready to file", signedNote:"Dr [name] signed the summary letter (with 2 edits).", packTitle:"What is ready", pack:["General disability claim form, pre-filled","Summary letter from your family doctor, signed","16 medical documents, in date order"],
       submitNote:"You file the claim in your Bituach Leumi personal area. We have prepared everything; you sign and upload.", openArea:"Open personal area (demo)", submitted:"I have submitted the claim",
       waitBtlTitle:"Bituach Leumi has received the claim", waitBtlBody:"We track the status and tell you when the medical committee date is set.", simBtl:"Demo: committee date is set",
-      commTitle:"Medical committee scheduled", commDate:"Tue 15 Dec · 10:30 · [Bituach Leumi branch]", prepTitle:"Getting ready for the committee", prep:["Bring all original documents","A list of medications and daily limitations (we drafted one)","You can come with a family member","If the claim is refused, we track the appeal deadline and pass it to the advisor"], addCal:"Add to calendar" },
+      commTitle:"Medical committee scheduled", commDate:"Tue 15 Dec · 10:30 · [Bituach Leumi branch]", prepTitle:"Getting ready for the committee", prep:["Bring all original documents","A list of medications and daily limitations (we drafted one)","You can come with a family member","If the claim is refused, we track the appeal deadline and remind you"], addCal:"Add to calendar" },
     next:{letter:"Approve letter to GP",waitGP:"Waiting for your GP",approve:"Approve Tofes 17 request",waitKupa:"Waiting for Naveh",slots:"Pick a time",booked:"Appointment booked",req:"Approve prescription request",wait:"Waiting for prescription",order:"Approve the order",ordered:"Ordered, reminders on",fuslots:"Approve times",fubooked:"All booked"},
     progress:function(d,t){return d+" of "+t+" steps done";},
     hTitle:"Givon · Discharge follow-up", hSub:"Patients discharged in the last week and where their plan stands", sample:"Sample data",
@@ -181,6 +185,32 @@ var T = {
     call:"Call", view:"View", dischargedOn:"discharged", callPatient:"Call patient", messageFamily:"Message family", notes:"Call notes", notesPh:"What was agreed on the call…", lFu:"Tests and appointments" }
 };
 
+Object.assign(T.he,{dlTitle:"תאריכי יעד", dlSub:"נזכיר לפני כל תאריך יעד, ושוב אם הוא עבר.", dlBooked:"נקבע", dlLeft:function(n){return "נותרו "+n+" ימים";}, dlBy:"לקבוע עד ", dlOverdue:"באיחור", dlAsk:"תאריך היעד עבר. כבר עשית את זה?", dlYes:"כן, בוצע", dlHelp:"עזרו לי לקבוע", dlDone:"בוצע", howBtn:"איך קובעים", jump:"הדגמה: קפיצה של חודש קדימה", jumpBack:"הדגמה: חזרה להיום", sampleInfo:"מיקומים ושעות לדוגמה",
+  gpBtn:"מה מקבל רופא המשפחה", gpTitle:"סיכום לרופא המשפחה", gpSub:"במקום המכתב המלא, הרופא מקבל סיכום קצר: מה נדרש ממנו ומה כבר בוצע. הסיכום מתעדכן לאורך הדרך.", gpDone:"כבר בוצע", gpNeeds:"נדרש מהרופא", gpFyi:"לידיעת הרופא", gpNone:"עדיין אין",
+  codeLbl:"קוד שירות", codeMatched:"הקוד נבדק", purposeLbl:"למה מיועד הטופס", erNote:"כדאי לדעת: אם במיון אמרו לחזור אם לא מרגישים טוב, עדיין צריך טופס 17, אלא אם מאושפזים.",
+  rxTodayTitle:"אפשר לקבל את התרופות היום?", rxTodayYes:"כן, בבית מרקחת של נווה", pickupKupa:"נווה פארם [סניף]", pickupKupaSub:"במחיר קופה · מוכן היום אחרי 16:00", kOverdue:"באיחור"});
+Object.assign(T.en,{dlTitle:"Deadlines", dlSub:"We remind you before each deadline, and again if it passes.", dlBooked:"Booked", dlLeft:function(n){return n+" days left";}, dlBy:"Book by ", dlOverdue:"Overdue", dlAsk:"The deadline has passed. Have you done it?", dlYes:"Yes, done", dlHelp:"Help me book", dlDone:"Done", howBtn:"How to book", jump:"Demo: jump ahead one month", jumpBack:"Demo: back to today", sampleInfo:"Sample locations and hours",
+  gpBtn:"What your GP receives", gpTitle:"Summary for your family doctor", gpSub:"Instead of the full letter, your GP gets a short summary of what is needed and what is already done. It updates as you go.", gpDone:"Already done", gpNeeds:"Needs the GP", gpFyi:"For the GP's information", gpNone:"Nothing yet",
+  codeLbl:"Service code", codeMatched:"Code checked", purposeLbl:"What this form is for", erNote:"Good to know: if the ER tells you to come back if you feel unwell, you still need a Tofes 17, unless you are admitted.",
+  rxTodayTitle:"Can you get your medicines today?", rxTodayYes:"Yes, at a Naveh pharmacy", pickupKupa:"Naveh Pharm [branch]", pickupKupaSub:"Kupa price · ready today after 16:00", kOverdue:"Overdue"});
+var HOWTO={
+ he:{gp:{how:"קובעים באפליקציה של נווה או בטלפון. אפשר שנקבע בשבילך.",places:[]},
+  blood:{how:"אין צורך בתור. מגיעים לעמדת האחיות. לפני פרופיל שומנים צריך צום של 12 שעות.",places:["מרפאת נווה [סניף א׳] · 0.8 ק״מ · א׳–ה׳ 07:00–09:30","מרפאת נווה [סניף ב׳] · 2.1 ק״מ · א׳–ה׳ 07:00–10:00"]},
+  xray:{how:"מביאים את ההפניה. ברוב מכוני הדימות אפשר להגיע בלי תור, בחלק צריך לקבוע בטלפון.",places:["[מכון דימות א׳] · 1.2 ק״מ · א׳–ה׳ 07:30–19:00","[מכון דימות ב׳] · 3.4 ק״מ · א׳–ה׳ 08:00–16:00"]},
+  clinic:{how:"צריך טופס 17. זה במסלול ׳הפניה וטופס 17׳, ונקבע תור ברגע שיאושר.",places:[]},
+  echo:{how:"צריך הפניה מרופא המשפחה וטופס 17. זה במסלול ׳הפניה וטופס 17׳.",places:[]},
+  holter:{how:"קובעים דרך עמדת האחיות במרפאת נווה, לא דרך הקרדיולוג. מתקשרים או קובעים באפליקציה של נווה תחת ׳בדיקות׳. מחזירים את המכשיר למחרת באותה שעה.",places:["מרפאת נווה [סניף א׳] · עמדת אחיות · א׳–ה׳ 08:00–14:00","מכון הלב של נווה [סניף] · א׳–ה׳ 08:00–19:00"]},
+  cardio:{how:"מרפאה פרטית. נזכיר לך בינואר לקבוע תור.",places:[]}},
+ en:{gp:{how:"Book in the Naveh app or by phone. We can book it for you.",places:[]},
+  blood:{how:"No appointment needed. Walk in to the nurses' station. Fast for 12 hours before a lipid test.",places:["Naveh clinic [branch A] · 0.8 km · Sun–Thu 07:00–09:30","Naveh clinic [branch B] · 2.1 km · Sun–Thu 07:00–10:00"]},
+  xray:{how:"Bring the referral. Most imaging centres take walk-ins; some need a booking by phone.",places:["[Imaging centre A] · 1.2 km · Sun–Thu 07:30–19:00","[Imaging centre B] · 3.4 km · Sun–Thu 08:00–16:00"]},
+  clinic:{how:"Needs a Tofes 17. It is in your Referral and Tofes 17 track; we book it once approved.",places:[]},
+  echo:{how:"Needs a referral from your family doctor and a Tofes 17. It is in your Referral and Tofes 17 track.",places:[]},
+  holter:{how:"Booked through the nurses' station at your Naveh clinic, not through the cardiologist. Call, or book in the Naveh app under Tests. You return the device the next day at the same time.",places:["Naveh clinic [branch A] · nurses' station · Sun–Thu 08:00–14:00","Naveh heart institute [branch] · Sun–Thu 08:00–19:00"]},
+  cardio:{how:"Private clinic. We remind you in January to book.",places:[]}}
+};
+function fixEcho(x,he){ if(!S.corrFix||S.flow!=="ext") return x; return he?String(x).split("אקו לב").join("אקו לב במאמץ"):String(x).split("an echocardiogram").join("a stress echocardiogram").split("Echocardiogram").join("Stress echocardiogram").split("echocardiogram").join("stress echocardiogram").split("stress stress").join("stress"); }
+
 function med(t, name, note, kind){ return {name:name, note:note, kind:kind, tag: kind==="new"?t.tagNew:kind==="changed"?t.tagChanged:t.tagStop}; }
 
 function data(flow, lang){
@@ -188,7 +218,7 @@ function data(flow, lang){
   if(!d||!d.tests) return d;
   if(flow==="ext"&&S.corrFix){
     var f=he?function(x){return String(x).split("אקו לב").join("אקו לב במאמץ");}:function(x){return String(x).split("an echocardiogram").join("a stress echocardiogram").split("Echocardiogram").join("Stress echocardiogram");};
-    d.tests[0]=[f(d.tests[0][0]),d.tests[0][1],"upd"]; d.refText=f(d.refText); if(d.letterBody) d.letterBody=f(d.letterBody); if(d.t17Fields) d.t17Fields[0]=[d.t17Fields[0][0],f(d.t17Fields[0][1])]; if(d.slotsWhere) d.slotsWhere=f(d.slotsWhere);
+    d.tests[0]=[f(d.tests[0][0]),d.tests[0][1],"upd"]; d.refText=f(d.refText); if(d.letterBody) d.letterBody=f(d.letterBody); if(d.t17Fields) d.t17Fields[0]=[d.t17Fields[0][0],f(d.t17Fields[0][1])]; if(d.slotsWhere) d.slotsWhere=f(d.slotsWhere); d.t17Code.to=f(d.t17Code.to); d.t17Purpose=f(d.t17Purpose); d.deadExtra[0].name=f(d.deadExtra[0].name);
   }
   if(S.corrNote) d.tests.push([T[lang].yourNote+S.corrNote,"","note"]);
   return d;
@@ -209,12 +239,16 @@ function data0(flow, lang){
     t17Fields:[ [he?"שירות":"Service", he?"מרפאת פנימית, מרכז רפואי גבעון":"Internal medicine clinic, Givon Medical Center"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [שם], פנימית ב׳":"Dr [name], internal medicine"], [he?"מועד מומלץ":"Recommended timing", he?"בעוד 4 שבועות":"In 4 weeks"], [he?"מצורף":"Attached", he?"מכתב שחרור.pdf":"Discharge letter.pdf"] ],
     slotsWhere: he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon",
     slots: he?["יום ב׳, 9 בנובמבר · 09:30","יום ד׳, 11 בנובמבר · 14:00","יום א׳, 15 בנובמבר · 11:15"]:["Mon 9 Nov · 09:30","Wed 11 Nov · 14:00","Sun 15 Nov · 11:15"],
-    rxReason: he?"בית החולים נתן תרופות לשלושה ימים בלבד. להמשך הטיפול צריך מרשם מרופא המשפחה.":"The hospital gave you 3 days of medication only. To continue, your family doctor needs to prescribe.",
+    rxReason: he?"המרשם מבית החולים מכובד בבתי המרקחת של נווה במחיר קופה, אז אין צורך לחכות לרופא המשפחה. בבתי מרקחת אחרים, כמו פארם-טוב, משלמים מחיר מלא.":"Your hospital prescription is honoured at Naveh pharmacies at the kupa price, so you do not need to wait for your GP. At other pharmacies, such as PharmTov, you pay full price.",
+    rxGpNote: he?"עדכנו את רופא המשפחה כדי שהתרופות יתווספו לתיק.":"We let your GP know, so the medications are added to your file.",
+    deadExtra:[{k:"clinic",due:"2026-11-08",name:he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon",t17:true}],
+    t17Code:{from:he?"קוד במכתב השחרור: אין":"Code on the discharge letter: none", note:"", to:he?"הותאם לקוד נווה [N-2140] · מרפאת פנימית, ביקור מעקב":"Matched to Naveh code [N-2140] · Internal medicine clinic, follow-up visit"},
+    t17Purpose: he?"ביקור במרפאה (מעקב אחרי אשפוז)":"Clinic visit (follow-up after admission)", erNote:true,
     stopNote: he?"שימו לב: להפסיק איבופרופן. נזכיר לכם.":"Note: stop taking ibuprofen. We will remind you.",
     rxReq: he?"שלום ד״ר [שם], אבקש מרשם להמשך הטיפול לפי מכתב השחרור מגבעון (מצורף): אוגמנטין 875 מ״ג פעמיים ביום ל-5 ימים, ואמלודיפין 10 מ״ג פעם ביום. תודה, רבקה כהן":"Dear Dr [name], please could you prescribe the medication in my Givon discharge letter (attached): Augmentin 875 mg twice a day for 5 days, and amlodipine 10 mg once a day. Thank you, Rivka Cohen",
     reminders: he?["אוגמנטין: 08:00 ו-20:00, עד [תאריך]","אמלודיפין 10 מ״ג: כל בוקר ב-08:00","לא לקחת איבופרופן"]:["Augmentin: 08:00 and 20:00, until [date]","Amlodipine 10 mg: every morning at 08:00","Do not take ibuprofen"],
     fuTrack: he?"רופא משפחה ובדיקות":"GP visit and tests",
-    fuItems:[ {name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"תוך 7 ימים":"Within 7 days", iso:"2026-10-15", time:"17:30"}, {name:he?"בדיקות דם (ספירה, CRP)":"Blood tests (CBC, CRP)", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-18", time:"07:45"}, {name:he?"צילום חזה":"Chest X-ray", when:he?"בעוד 6 שבועות":"In 6 weeks", iso:"2026-11-23", time:"11:00"} ]
+    fuItems:[ {k:"gp",due:"2026-10-18",name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"תוך 7 ימים":"Within 7 days", iso:"2026-10-15", time:"17:30"}, {k:"blood",due:"2026-10-18",name:he?"בדיקות דם (ספירה, CRP)":"Blood tests (CBC, CRP)", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-18", time:"07:45"}, {k:"xray",due:"2026-11-25",name:he?"צילום חזה":"Chest X-ray", when:he?"בעוד 6 שבועות":"In 6 weeks", iso:"2026-11-23", time:"11:00"} ]
   };
   return {
     docName: he?"סיכום ביקור · קרדיולוג פרטי":"Visit summary · private cardiologist",
@@ -228,37 +262,42 @@ function data0(flow, lang){
     letterTo: he?"אל: ד״ר [רופא המשפחה], מרפאת נווה [סניף]":"To: Dr [family doctor], Naveh clinic [branch]",
     letterBody: he?"שלום ד״ר [שם], ביום [תאריך] ביקרתי אצל קרדיולוג פרטי שהמליץ על אקו לב והולטר 24 שעות. סיכום הביקור מצורף. אבקש הפניה לבדיקות דרך הקופה. תודה, רבקה כהן":"Dear Dr [name], on [date] I saw a private cardiologist who recommended an echocardiogram and a 24-hour Holter. The visit summary is attached. Please could you refer me for these tests through the kupa. Thank you, Rivka Cohen",
     attachments: he?["סיכום ביקור.pdf","המלצת הקרדיולוג.pdf"]:["Visit summary.pdf","Cardiologist recommendation.pdf"],
-    t17Fields:[ [he?"שירות":"Service", he?"אקו לב והולטר 24 שעות":"Echocardiogram and 24-hour Holter"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [רופא המשפחה]":"Dr [family doctor]"], [he?"מכון":"Provider", he?"[מכון בהסדר עם נווה]":"[Naveh-contracted provider]"], [he?"מצורף":"Attached", he?"הפניה מרופא המשפחה.pdf":"GP referral.pdf"] ],
+    t17Fields:[ [he?"שירות":"Service", he?"אקו לב":"Echocardiogram"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [רופא המשפחה]":"Dr [family doctor]"], [he?"מכון":"Provider", he?"[מכון בהסדר עם נווה]":"[Naveh-contracted provider]"], [he?"מצורף":"Attached", he?"הפניה מרופא המשפחה.pdf":"GP referral.pdf"] ],
     slotsWhere: he?"אקו לב, [מכון]":"Echocardiogram, [provider]",
     slots: he?["יום ב׳, 26 באוקטובר · 08:30","יום ד׳, 28 באוקטובר · 15:00","יום א׳, 1 בנובמבר · 10:45"]:["Mon 26 Oct · 08:30","Wed 28 Oct · 15:00","Sun 1 Nov · 10:45"],
-    rxReason: he?"מרשם מרופא פרטי לא מזכה במחיר המסובסד. נבקש מרופא המשפחה מרשם קופה.":"A private prescription does not get the subsidised price. We ask your family doctor for a kupa prescription.",
+    rxReason: he?"מרשם מהקרדיולוג מכובד בבתי המרקחת של נווה במחיר קופה. בבתי מרקחת אחרים, כמו פארם-טוב, משלמים מחיר מלא.":"The cardiologist's prescription is honoured at Naveh pharmacies at the kupa price. At other pharmacies, such as PharmTov, you pay full price.",
+    rxGpNote: he?"ביקשנו מרופא המשפחה להוסיף את התרופה לתיק, למרשמים חוזרים.":"We asked your GP to add it to your file for repeat prescriptions.",
+    deadExtra:[{k:"echo",due:"2026-11-11",name:he?"אקו לב":"Echocardiogram",t17:true},{k:"holter",due:"2026-11-11",name:he?"הולטר 24 שעות":"24-hour Holter"}],
+    t17Code:{from:he?"קוד בהפניה: [C-7731]":"Code on the referral: [C-7731]", note:he?"לא קיים ברשימת הקודים של נווה":"Not in Naveh's code list", to:he?"הותאם לקוד נווה [N-3305] · אקו לב":"Matched to Naveh code [N-3305] · Echocardiogram"},
+    t17Purpose: he?"בדיקה (אקו לב), לא ביקור במרפאה":"A test (echocardiogram), not a clinic visit", erNote:false,
     stopNote:"",
     rxReq: he?"שלום ד״ר [שם], אבקש מרשם קופה לאטורבסטטין 20 מ״ג פעם ביום, לפי המלצת הקרדיולוג (מצורפת). תודה, רבקה כהן":"Dear Dr [name], please could you prescribe atorvastatin 20 mg once a day through the kupa, as the cardiologist recommended (attached). Thank you, Rivka Cohen",
     reminders: he?["אטורבסטטין: כל ערב ב-21:00","חידוש מרשם בעוד 3 חודשים"]:["Atorvastatin: every evening at 21:00","Prescription renewal in 3 months"],
     fuTrack: he?"בדיקות ומעקב":"Tests and follow-ups",
-    fuItems:[ {name:he?"בדיקת דם: פרופיל שומנים":"Blood test: lipid profile", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-19", time:"07:45"}, {name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"לעבור על התוצאות":"To go over the results", iso:"2026-10-21", time:"16:00"}, {name:he?"מעקב קרדיולוג (פרטי)":"Cardiology follow-up (private)", when:he?"בעוד 3 חודשים":"In 3 months", iso:null, note:he?"תזכורת לקבוע תור בינואר":"Reminder to book in January"} ]
+    fuItems:[ {k:"blood",due:"2026-10-18",name:he?"בדיקת דם: פרופיל שומנים":"Blood test: lipid profile", when:he?"בעוד שבוע":"In 1 week", iso:"2026-10-19", time:"07:45"}, {k:"gp",due:"2026-10-25",name:he?"ביקור אצל רופא המשפחה":"Family doctor visit", when:he?"לעבור על התוצאות":"To go over the results", iso:"2026-10-21", time:"16:00"}, {k:"cardio",due:null,name:he?"מעקב קרדיולוג (פרטי)":"Cardiology follow-up (private)", when:he?"בעוד 3 חודשים":"In 3 months", iso:null, note:he?"תזכורת לקבוע תור בינואר":"Reminder to book in January"} ]
   };
 }
 
 var ROWS = [
   {id:1,he:["ר.כ.","פנימית ב׳","לאשר בקשת טופס 17","ממתין לאישור המטופלת","הוזמן, איסוף היום","רופא משפחה נקבע ל-15.10",""],en:["R.C.","Internal medicine B","Approve Tofes 17 request","Waiting for the patient's approval","Ordered, pickup today","GP visit booked for 15 Oct",""],date:"8.10",done:3,total:9,st:"track"},
-  {id:2,he:["מ.ל.","קרדיולוגיה","ממתינים להפניה מרופא המשפחה, 4 ימים","מכתב לרופא נשלח, נשלחה תזכורת","ממתינים למרשם","בדיקת דם נקבעה ל-19.10",""],en:["M.L.","Cardiology","Waiting for GP referral, 4 days","Letter sent to GP, reminder sent","Waiting for prescription","Blood test booked for 19 Oct",""],date:"6.10",done:2,total:8,st:"wait"},
+  {id:2,he:["מ.ל.","קרדיולוגיה","ממתינים להפניה מרופא המשפחה, 4 ימים","מכתב לרופא נשלח, נשלחה תזכורת","נלקח בנווה פארם","בדיקת דם נקבעה ל-19.10",""],en:["M.L.","Cardiology","Waiting for GP referral, 4 days","Letter sent to GP, reminder sent","Collected at Naveh Pharm","Blood test booked for 19 Oct",""],date:"6.10",done:2,total:8,st:"wait"},
   {id:3,he:["א.ש.","פנימית א׳","לא פתח/ה את התוכנית","לא התחיל","לא התחיל","לא התחיל","לא פתח/ה את התוכנית מאז השחרור"],en:["A.S.","Internal medicine A","Has not opened the plan","Not started","Not started","Not started","Has not opened the plan since discharge"],date:"7.10",done:0,total:7,st:"call"},
   {id:4,he:["ד.ב.","אורתופדיה","פיזיותרפיה נקבעה","תור למרפאה נקבע","הושלם","פיזיותרפיה נקבעה ל-14.10",""],en:["D.B.","Orthopaedics","Physiotherapy booked","Clinic visit booked","Done","Physiotherapy booked for 14 Oct",""],date:"5.10",done:6,total:7,st:"track"},
-  {id:5,he:["י.פ.","פנימית ב׳","החמיץ/ה בדיקת דם","בקשת טופס 17 נשלחה","הושלם","לא הגיע/ה לבדיקת דם היום","החמיץ/ה בדיקת דם מתוכננת"],en:["Y.P.","Internal medicine B","Missed blood test","Tofes 17 request sent","Done","Did not attend blood test today","Missed a planned blood test"],date:"4.10",done:1,total:8,st:"call"},
+  {id:5,he:["י.פ.","פנימית ב׳","החמיץ/ה בדיקת דם","בקשת טופס 17 נשלחה","הושלם","לא הגיע/ה לבדיקת דם היום","החמיץ/ה בדיקת דם מתוכננת"],en:["Y.P.","Internal medicine B","Missed blood test","Tofes 17 request sent","Done","Did not attend blood test today","Missed a planned blood test"],date:"4.10",done:1,total:8,st:"call",od:true},
   {id:6,he:["ש.ג.","כירורגיה נווה","לאסוף תרופות","תור נקבע","מוכן לאיסוף","בדיקת פצע נקבעה",""],en:["S.G.","General surgery","Collect medication","Appointment booked","Ready for pickup","Wound check booked",""],date:"8.10",done:4,total:6,st:"track"},
   {id:7,he:["נ.ע.","קרדיולוגיה","ממתינים לאישור נווה","ממתינים לאישור טופס 17","הושלם","אקו לב נקבע ל-26.10",""],en:["N.A.","Cardiology","Waiting for Naveh approval","Waiting for Tofes 17 approval","Done","Echo booked for 26 Oct",""],date:"3.10",done:5,total:9,st:"wait"},
+  {id:9,he:["ר.מ.","קרדיולוגיה","הולטר באיחור של 5 ימים","טופס 17 אושר","הושלם","הולטר לא נקבע, תאריך היעד עבר","תאריך היעד להולטר עבר לפני 5 ימים, לא נקבע תור"],en:["R.M.","Cardiology","Holter 5 days overdue","Tofes 17 approved","Done","Holter not booked, deadline passed","Holter deadline passed 5 days ago, not booked"],date:"9.9",done:4,total:7,st:"call",od:true},
   {id:8,he:["ת.ח.","פנימית א׳","דיווח/ה על חום, לחזור בטלפון","אושר, לא נבחר מועד","הושלם","דווח חום באפליקציה היום","דווח סימן אזהרה: חום"],en:["T.H.","Internal medicine A","Reported fever, call back","Approved, no slot picked","Done","Fever reported in the app today","Warning sign reported: fever"],date:"6.10",done:2,total:7,st:"call"}
 ];
 
 var K17={dis:["approve","waitKupa","slots","booked"],ext:["letter","waitGP","approve","waitKupa","slots","booked"]};
-var KRX=["req","wait","order","ordered"], KFU=["slots","booked"];
+var KRX={dis:["order","ordered"],ext:["order","ordered"]}, KFU=["slots","booked"];
 var NEEDS={letter:1,approve:1,slots:1,req:1,order:1}, DONE={booked:1,ordered:1};
-var BTLK=["found","gaps","waitDocs","advisor","waitAdvisor","submit","waitBtl","committee"];
-NEEDS.found=1; NEEDS.gaps=1; NEEDS.advisor=1; NEEDS.submit=1; DONE.committee=1;
-var BACK={btl:"home",pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
+var BTLK=["found","gaps","waitDocs","gpLetter","waitSign","submit","waitBtl","committee"];
+NEEDS.found=1; NEEDS.gaps=1; NEEDS.gpLetter=1; NEEDS.submit=1; DONE.committee=1;
+var BACK={gp:"plan",btl:"home",pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
 
-var S={view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false};
+var S={howto:"",jump:false,ddDone:{},view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false};
 
 var DOW={he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
 var MON={he:["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
@@ -287,12 +326,63 @@ function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {"&":"&amp
 var CHECK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E6A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
 var CLIP='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12l-8.5 8.5a5 5 0 0 1-7-7L14 5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 8"/></svg>';
 
+function howtoBlock(k){
+  var t=T[S.lang], ht=HOWTO[S.lang][k]; if(!ht) return "";
+  var open=S.howto===k, h='<button type="button" class="smallbtn" data-a="howto" data-v="'+k+'" style="align-self:flex-start;margin-top:6px">'+t.howBtn+(open?' ▴':' ▾')+'</button>';
+  if(open){ h+='<div style="background:#F4F5F2;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-top:6px"><span style="font-size:14px;line-height:1.5">'+esc(ht.how)+'</span>';
+    ht.places.forEach(function(p){h+='<span class="small" style="line-height:1.4">📍 '+esc(p)+'</span>';});
+    if(ht.places.length) h+='<span class="small muted">'+t.sampleInfo+'</span>';
+    h+='</div>'; }
+  return h;
+}
+function deadlinesCard(flow,d,t,k17){
+  var he=S.lang==="he", now=TODAY+(S.jump?36*864e5:0), items=[];
+  d.fuItems.forEach(function(it,i){ items.push({k:it.k,name:it.name,due:it.due,booked:S.fu>=1,bookedTxt:fuLabel(it,fuCurrent(it,i)),note:it.iso?null:it.note}); });
+  d.deadExtra.forEach(function(x){ items.push({k:x.k,name:x.name,due:x.due,booked:x.t17?k17==="booked":false,bookedTxt:x.t17&&k17==="booked"?(d.slots[S.slot]||""):""}); });
+  items.sort(function(a,b){return (a.due||"9")<(b.due||"9")?-1:1;});
+  var anyOpen=false, h='<section class="card" style="gap:0;padding:12px 16px"><h2>'+t.dlTitle+'</h2><p class="small muted" style="margin:2px 0 6px">'+t.dlSub+'</p>';
+  items.forEach(function(x){
+    var tag, sub="", done=x.booked||S.ddDone[x.k];
+    if(S.ddDone[x.k]) tag='<span class="tag new">'+t.dlDone+'</span>';
+    else if(x.booked){ tag='<span class="tag new">'+t.dlBooked+'</span>'; sub=x.bookedTxt; }
+    else if(!x.due){ tag=''; sub=x.note||""; }
+    else { var left=Math.round((parseIso(x.due)-now)/864e5); anyOpen=true;
+      if(left<0){ tag='<span class="tag stop">'+t.dlOverdue+'</span>'; }
+      else { tag='<span class="tag changed">'+t.dlLeft(left)+'</span>'; sub=t.dlBy+fmt(x.due,"").replace(/ · $/,""); } }
+    h+='<div style="display:flex;flex-direction:column;gap:2px;padding:9px 0;border-top:1px solid #ECEDEA"><span class="row" style="align-items:center;gap:8px"><span style="font-size:14px;font-weight:500">'+esc(x.name)+'</span>'+tag+'</span>';
+    if(sub) h+='<span class="small muted">'+esc(sub)+'</span>';
+    if(!done && x.due && Math.round((parseIso(x.due)-now)/864e5)<0){
+      h+='<span style="font-size:13px;color:#8A3F06;font-weight:500;margin-top:2px">'+t.dlAsk+'</span><span style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><button type="button" class="smallbtn" data-a="ddDone" data-v="'+x.k+'">'+t.dlYes+'</button><button type="button" class="smallbtn go" data-a="howto" data-v="'+x.k+'">'+t.dlHelp+'</button></span>';
+      if(S.howto===x.k){ var ht=HOWTO[S.lang][x.k]; if(ht){ h+='<div style="background:#F4F5F2;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-top:6px"><span style="font-size:14px;line-height:1.5">'+esc(ht.how)+'</span>'; ht.places.forEach(function(p){h+='<span class="small">📍 '+esc(p)+'</span>';}); h+='</div>'; } }
+    } else if(!done) h+=howtoBlock(x.k);
+    h+='</div>';
+  });
+  if(anyOpen||S.jump) h+='<button type="button" class="demo" data-a="jump" style="margin-top:8px">'+(S.jump?t.jumpBack:t.jump)+'</button>';
+  return h+'</section>';
+}
+function gpSum(flow,t,he,d){
+  var k17=K17[flow][S.t17], rx=S.rx>=1, fu=S.fu>=1, f=function(x){return fixEcho(x,he);};
+  if(flow==="dis") return {
+    head: he?"רבקה כהן · שוחררה מגבעון, פנימית ב׳, 8.10":"Rivka Cohen · discharged from Givon, internal medicine, 8 Oct",
+    needs:[ he?"לבדוק את שינוי המינון של אמלודיפין: מ-5 מ״ג ל-10 מ״ג":"Review amlodipine change: 5 mg to 10 mg once a day", he?"איבופרופן הופסק עד הביקור אצלך: להחליט אם לחדש":"Ibuprofen stopped until the GP visit: decide whether to restart", fu?null:(he?"ביקור אצלך תוך 7 ימים (עדיין לא נקבע)":"GP visit within 7 days (not booked yet)") ],
+    done:[ S.t17>=1?(k17==="booked"?(he?"טופס 17 אושר ונקבע תור למרפאת פנימית, גבעון":"Tofes 17 approved, internal medicine clinic booked at Givon"):(he?"נשלחה בקשה לטופס 17 למרפאת פנימית, גבעון":"Tofes 17 requested for the Givon internal medicine clinic")):null,
+      rx?(he?"התרופות נלקחו בנווה פארם במחיר קופה (אוגמנטין, אמלודיפין 10 מ״ג)":"Medications collected at Naveh Pharm at kupa price (Augmentin, amlodipine 10 mg)"):null,
+      fu?(he?"נקבעו: ביקור אצלך, בדיקות דם וצילום חזה":"Booked: visit with you, blood tests and chest X-ray"):null ],
+    fyi:[ he?"סימני אזהרה שנמסרו למטופלת: חום מעל 38.5 יותר מיומיים, קוצר נשימה או כאב בחזה":"Warning signs given to the patient: fever over 38.5 for more than 2 days, shortness of breath or chest pain" ] };
+  return {
+    head: he?"רבקה כהן · ביקור אצל קרדיולוג פרטי":"Rivka Cohen · private cardiologist visit",
+    needs:[ S.t17<2?f(he?"הפניה לאקו לב ולהולטר 24 שעות (המלצת הקרדיולוג מצורפת)":"Referral for an echocardiogram and 24-hour Holter (cardiologist's recommendation attached)"):null, he?"להוסיף אטורבסטטין 20 מ״ג לתיק, למרשמים חוזרים":"Add atorvastatin 20 mg to the file for repeat prescriptions" ],
+    done:[ S.t17>=2?f(he?"ההפניה שלך התקבלה ונשלחה בקשה לטופס 17 לאקו לב":"Your referral received; Tofes 17 requested for the echocardiogram"):null, k17==="booked"?f(he?"אקו לב נקבע":"Echocardiogram booked"):null,
+      rx?(he?"אטורבסטטין 20 מ״ג נלקח בנווה פארם במחיר קופה":"Atorvastatin 20 mg collected at Naveh Pharm at kupa price"):null, fu?(he?"נקבעו: פרופיל שומנים וביקור אצלך":"Booked: lipid profile and a visit with you"):null ],
+    fyi:[ he?"מעקב קרדיולוג פרטי בעוד 3 חודשים, נקבעה תזכורת לינואר":"Private cardiology follow-up in 3 months; reminder set for January" ] };
+}
+
 function pill(t,kind){ if(DONE[kind]) return '<span class="st done">'+t.pillDone+'</span>'; if(NEEDS[kind]) return '<span class="st needs">'+t.pillNeeds+'</span>'; return '<span class="st wait">'+t.pillWait+'</span>'; }
 
 function appScreen(){
   var t=T[S.lang], flow=S.flow||"dis", d=data(flow,S.lang);
-  var k17list=K17[flow], k17=k17list[S.t17], kRx=KRX[S.rx], kFu=KFU[S.fu];
-  var done=S.t17+S.rx+S.fu, total=(k17list.length-1)+(KRX.length-1)+(KFU.length-1), pct=Math.round(done/total*100);
+  var k17list=K17[flow], k17=k17list[S.t17], kRx=KRX[flow][S.rx], kFu=KFU[S.fu];
+  var done=S.t17+S.rx+S.fu, total=(k17list.length-1)+(KRX[flow].length-1)+(KFU.length-1), pct=Math.round(done/total*100);
   var progress='<div class="bar"><i style="width:'+pct+'%"></i></div><p class="small muted">'+esc(t.progress(done,total))+'</p>';
   var h="";
   switch(S.screen){
@@ -319,12 +409,14 @@ function appScreen(){
       h+='<p class="small muted">'+b.reqHint+'</p><button type="button" class="primary" data-a="advBtl">'+b.approveReqs+'</button>';
     } else if(kb==="waitDocs"){
       h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitDocsTitle+'</span><span class="muted">'+b.waitDocsBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simDocs+'</button>';
-    } else if(kb==="advisor"){
-      h+='<div class="okbox"><span class="head">'+b.completeTitle+'</span></div><h1 style="font-size:19px">'+b.advisorTitle+'</h1><div class="card"><span style="font-size:15px;font-weight:600">'+b.advisorName+'</span><span class="muted">'+b.advisorBody+'</span><span class="small" style="font-weight:500">'+b.advisorFee+'</span></div><button type="button" class="primary" data-a="advBtl">'+b.sendAdvisor+'</button>';
-    } else if(kb==="waitAdvisor"){
-      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitAdvTitle+'</span><span class="muted">'+b.waitAdvBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simAdv+'</button>';
+    } else if(kb==="gpLetter"){
+      h+='<div class="okbox"><span class="head">'+b.completeTitle+'</span></div><h1 style="font-size:19px">'+b.gpLetTitle+'</h1><p class="muted" style="line-height:1.5">'+b.gpLetWhy+'</p><div class="card" style="gap:8px"><span class="small muted">'+b.gpLetTo+'</span>';
+      b.gpLetLines.forEach(function(l,i){h+='<p style="font-size:14px;line-height:1.5'+(i===b.gpLetLines.length-1?';color:#5A615B':'')+'">'+l+'</p>';});
+      h+='</div><p class="small muted">'+b.gpLetNote+'</p><button type="button" class="primary" data-a="advBtl">'+b.sendGpLet+'</button>';
+    } else if(kb==="waitSign"){
+      h+='<div class="card"><span style="font-size:18px;font-weight:600">'+b.waitSignTitle+'</span><span class="muted">'+b.waitSignBody+'</span></div><button type="button" class="demo" data-a="advBtl">'+b.simSign+'</button>';
     } else if(kb==="submit"){
-      h+='<h1 style="font-size:19px">'+b.submitTitle+'</h1><div class="okbox" style="font-size:14px;line-height:1.5">'+b.advisorNote+'</div><h2 style="font-size:16px">'+b.packTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
+      h+='<h1 style="font-size:19px">'+b.submitTitle+'</h1><div class="okbox" style="font-size:14px;line-height:1.5">'+b.signedNote+'</div><h2 style="font-size:16px">'+b.packTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
       b.pack.forEach(function(p){h+='<div class="field" style="flex-direction:row;gap:10px;align-items:center">'+CHECK+'<span style="font-size:14px;color:#1C1F1D">'+p+'</span></div>';});
       h+='</div><p class="muted">'+b.submitNote+'</p><button type="button" class="secondary">'+b.openArea+'</button><button type="button" class="primary" data-a="advBtl">'+b.submitted+'</button>';
     } else if(kb==="waitBtl"){
@@ -372,7 +464,18 @@ function appScreen(){
     [[t.trT17,"t17",k17,t.next[k17]],[t.trRx,"rx",kRx,t.next[kRx]],[d.fuTrack,"fu",kFu,t.next["fu"+kFu]]].forEach(function(tr){
       h+='<button type="button" class="trackbtn" data-a="go" data-v="'+tr[1]+'"><span class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">'+esc(tr[0])+'</span>'+pill(t,tr[2])+'</span><span class="muted">'+t.nextLabel+' '+esc(tr[3])+'</span></button>';
     });
+    h+=deadlinesCard(flow,d,t,k17);
+    h+='<button type="button" class="secondary" data-a="go" data-v="gp">'+t.gpBtn+'</button>';
     h+='<p class="small muted">'+t.familyNote+'</p></div>'; break;
+  case "gp":
+    var g=gpSum(flow,t,S.lang==="he",d);
+    h+='<div class="screen"><h1 style="font-size:20px">'+t.gpTitle+'</h1><p class="muted" style="line-height:1.5">'+t.gpSub+'</p><div class="card" style="gap:12px"><span style="font-size:14px;font-weight:600">'+esc(g.head)+'</span>';
+    [[t.gpNeeds,g.needs,"#8A3F06"],[t.gpDone,g.done,"#0B5552"],[t.gpFyi,g.fyi,"#5A615B"]].forEach(function(sec){
+      h+='<div style="display:flex;flex-direction:column;gap:4px"><span class="small" style="font-weight:600;color:'+sec[2]+'">'+sec[0]+'</span>';
+      var L=sec[1].filter(Boolean); if(!L.length) h+='<span class="small muted">'+t.gpNone+'</span>';
+      L.forEach(function(x){h+='<span style="font-size:14px;line-height:1.45">• '+esc(x)+'</span>';});
+      h+='</div>';});
+    h+='</div><button type="button" class="secondary" data-a="go" data-v="plan">'+t.backToPlan+'</button></div>'; break;
   case "t17":
     h+='<div class="screen"><p class="small" style="font-weight:500;color:#0F6E6A">'+t.trT17+'</p>';
     if(k17==="letter"){
@@ -386,7 +489,10 @@ function appScreen(){
       h+= d.t17Valid ? '<div class="okbox"><span class="small">'+t.checkTitle+'</span><span class="head">'+esc(d.checkResult)+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.checkBody)+'</span></div>' : '<div class="okbox" style="font-size:15px;font-weight:500">'+t.gpArrived+'</div>';
       h+='<h1 style="font-size:19px">'+t.approveT17Title+'</h1><p class="muted">'+t.approveT17Sub+'</p><div class="card" style="padding:4px 16px;gap:0">';
       d.t17Fields.forEach(function(f){h+='<div class="field"><span>'+esc(f[0])+'</span><span style="font-size:15px">'+esc(f[1])+'</span></div>';});
-      h+='</div><button type="button" class="primary" data-a="adv17">'+t.approveT17Btn+'</button>';
+      h+='<div class="field"><span>'+t.purposeLbl+'</span><span style="font-size:15px">'+esc(d.t17Purpose)+'</span></div>';
+      h+='</div><div class="card" style="gap:4px"><span class="row" style="align-items:center"><span style="font-size:14px;font-weight:600">'+t.codeLbl+'</span><span class="tag new">'+t.codeMatched+'</span></span><span class="small muted">'+esc(d.t17Code.from)+'</span>'+(d.t17Code.note?'<span class="small" style="color:#8A3F06">'+esc(d.t17Code.note)+'</span>':'')+'<span style="font-size:14px;font-weight:500">'+esc(d.t17Code.to)+'</span></div>';
+      if(d.erNote) h+='<div class="card" style="font-size:13px;line-height:1.5;background:#F4F5F2">'+t.erNote+'</div>';
+      h+='<button type="button" class="primary" data-a="adv17">'+t.approveT17Btn+'</button>';
     } else if(k17==="waitKupa"){
       h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.waitKupaTitle+'</span><span class="muted">'+t.waitKupaBody+'</span></div><button type="button" class="demo" data-a="adv17">'+t.simKupa+'</button>';
     } else if(k17==="slots"){
@@ -406,12 +512,13 @@ function appScreen(){
     } else if(kRx==="wait"){
       h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.rxWaitTitle+'</span><span class="muted">'+t.waitGPBody+'</span></div><button type="button" class="demo" data-a="advRx">'+t.simRx+'</button>';
     } else if(kRx==="order"){
-      h+='<h1 style="font-size:19px">'+t.orderTitle+'</h1>';
-      h+='<button type="button" class="opt'+(S.delivery==="pickup"?' on':'')+'" data-a="deliv" data-v="pickup"><span style="font-size:16px;font-weight:600">'+t.pickup+'</span><span class="small muted">'+t.pickupSub+'</span></button>';
+      h+='<div class="okbox"><span class="small">'+t.rxTodayTitle+'</span><span class="head">'+t.rxTodayYes+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.rxReason)+'</span></div>';
+      if(d.stopNote) h+='<div class="card" style="font-size:14px;font-weight:500">'+esc(d.stopNote)+'</div>';
+      h+='<button type="button" class="opt'+(S.delivery==="pickup"?' on':'')+'" data-a="deliv" data-v="pickup"><span style="font-size:16px;font-weight:600">'+t.pickupKupa+'</span><span class="small muted">'+t.pickupKupaSub+'</span></button>';
       h+='<button type="button" class="opt'+(S.delivery==="delivery"?' on':'')+'" data-a="deliv" data-v="delivery"><span style="font-size:16px;font-weight:600">'+t.delivery+'</span><span class="small muted">'+t.deliverySub+'</span></button>';
       h+='<button type="button" class="primary" data-a="advRx">'+t.approveOrder+'</button>';
     } else {
-      h+='<div class="okbox"><span style="font-size:18px;font-weight:600">'+t.orderedTitle+'</span><span style="font-size:14px">'+(S.delivery==="pickup"?t.pickup+' · '+t.pickupSub:t.delivery+' · '+t.deliverySub)+'</span></div><h2 style="font-size:16px">'+t.remTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
+      h+='<div class="okbox"><span style="font-size:18px;font-weight:600">'+t.orderedTitle+'</span><span style="font-size:14px">'+(S.delivery==="pickup"?t.pickupKupa+' · '+t.pickupKupaSub:t.delivery+' · '+t.deliverySub)+'</span><span style="font-size:14px">'+esc(d.rxGpNote)+'</span></div><h2 style="font-size:16px">'+t.remTitle+'</h2><div class="card" style="padding:4px 16px;gap:0">';
       d.reminders.forEach(function(r){h+='<div class="field" style="font-size:14px">'+esc(r)+'</div>';});
       h+='</div><button type="button" class="secondary" data-a="go" data-v="plan">'+t.backToPlan+'</button>';
     }
@@ -425,6 +532,7 @@ function appScreen(){
         h+='<div class="card" style="gap:4px"><span class="row" style="align-items:center"><span style="font-size:15px;font-weight:600">'+esc(it.name)+'</span>'+(changed?'<span class="tag new">'+t.changedTag+'</span>':'')+'</span><span class="small muted">'+esc(it.when)+'</span><span style="font-size:14px;color:#0F6E6A;font-weight:500">'+esc(fuLabel(it,cur))+'</span>';
         if(it.iso && S.fuEdit!==i) h+='<button type="button" class="smallbtn" data-a="fuEdit" data-v="'+i+'" style="align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>'+t.changeTime+'</button>';
         if(S.fuEdit===i) h+=calendar(it,cur);
+        h+=howtoBlock(it.k);
         h+='</div>';
       });
       h+='<button type="button" class="primary" data-a="advFu" '+(S.fuEdit>=0?'disabled':'')+'>'+t.approveAll+'</button>';
@@ -441,17 +549,17 @@ function appScreen(){
 
 function hospScreen(){
   var t=T[S.lang], L=S.lang;
-  var counts={track:0,call:0,wait:0}; ROWS.forEach(function(r){counts[r.st]++;});
+  var counts={track:0,call:0,wait:0,od:0}; ROWS.forEach(function(r){counts[r.st]++; if(r.od) counts.od++;});
   var stText={track:t.kTrack,call:t.kCall,wait:t.kWait};
   var h='<div class="hosp"><header style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px"><div style="display:flex;flex-direction:column;gap:4px"><h1 style="font-size:26px">'+t.hTitle+'</h1><p class="muted">'+t.hSub+'</p></div><span class="st wait">'+t.sample+'</span></header>';
   h+='<div class="kpis">';
-  [[t.kFollowed,ROWS.length,"#1C1F1D"],[t.kTrack,counts.track,"#0B5552"],[t.kCall,counts.call,"#8A3F06"],[t.kWait,counts.wait,"#3F4540"]].forEach(function(k){h+='<div class="kpi"><span class="small muted">'+k[0]+'</span><b style="color:'+k[2]+'">'+k[1]+'</b></div>';});
+  [[t.kFollowed,ROWS.length,"#1C1F1D"],[t.kTrack,counts.track,"#0B5552"],[t.kCall,counts.call,"#8A3F06"],[t.kOverdue,counts.od,"#A3361B"],[t.kWait,counts.wait,"#3F4540"]].forEach(function(k){h+='<div class="kpi"><span class="small muted">'+k[0]+'</span><b style="color:'+k[2]+'">'+k[1]+'</b></div>';});
   h+='</div><nav class="filters">';
-  [["all",t.fAll+" ("+ROWS.length+")"],["call",t.kCall+" ("+counts.call+")"],["wait",t.kWait+" ("+counts.wait+")"],["track",t.kTrack+" ("+counts.track+")"]].forEach(function(f){h+='<button type="button" data-a="filter" data-v="'+f[0]+'" class="'+(S.hFilter===f[0]?'on':'')+'">'+f[1]+'</button>';});
+  [["all",t.fAll+" ("+ROWS.length+")"],["call",t.kCall+" ("+counts.call+")"],["od",t.kOverdue+" ("+counts.od+")"],["wait",t.kWait+" ("+counts.wait+")"],["track",t.kTrack+" ("+counts.track+")"]].forEach(function(f){h+='<button type="button" data-a="filter" data-v="'+f[0]+'" class="'+(S.hFilter===f[0]?'on':'')+'">'+f[1]+'</button>';});
   h+='</nav><div class="split"><section class="tablebox"><div class="scroll"><table><thead><tr><th>'+t.colPatient+'</th><th>'+t.colDischarged+'</th><th>'+t.colProgress+'</th><th>'+t.colNext+'</th><th>'+t.colStatus+'</th><th>'+t.colAction+'</th></tr></thead><tbody>';
-  ROWS.filter(function(r){return S.hFilter==="all"||r.st===S.hFilter;}).forEach(function(r){
+  ROWS.filter(function(r){return S.hFilter==="all"||r.st===S.hFilter||(S.hFilter==="od"&&r.od);}).forEach(function(r){
     var x=r[L], pct=Math.round(r.done/r.total*100);
-    h+='<tr class="'+(r.id===S.hSel?'sel':'')+'"><td><button type="button" class="namebtn" data-a="hsel" data-v="'+r.id+'">'+esc(x[0])+'</button><div class="small muted">'+esc(x[1])+'</div></td><td>'+r.date+'</td><td><span class="minibar"><i style="width:'+pct+'%"></i></span> <span class="small">'+r.done+'/'+r.total+'</span></td><td>'+esc(x[2])+'</td><td><span class="st '+r.st+'">'+stText[r.st]+'</span></td><td><button type="button" class="smallbtn'+(r.st==="call"?' go':'')+'" data-a="hsel" data-v="'+r.id+'">'+(r.st==="call"?t.call:t.view)+'</button></td></tr>';
+    h+='<tr class="'+(r.id===S.hSel?'sel':'')+'"><td><button type="button" class="namebtn" data-a="hsel" data-v="'+r.id+'">'+esc(x[0])+'</button><div class="small muted">'+esc(x[1])+'</div></td><td>'+r.date+'</td><td><span class="minibar"><i style="width:'+pct+'%"></i></span> <span class="small">'+r.done+'/'+r.total+'</span></td><td>'+esc(x[2])+(r.od?' <span class="tag stop">'+t.kOverdue+'</span>':'')+'</td><td><span class="st '+r.st+'">'+stText[r.st]+'</span></td><td><button type="button" class="smallbtn'+(r.st==="call"?' go':'')+'" data-a="hsel" data-v="'+r.id+'">'+(r.st==="call"?t.call:t.view)+'</button></td></tr>';
   });
   var sel=ROWS.filter(function(r){return r.id===S.hSel;})[0]||ROWS[0], s=sel[L];
   h+='</tbody></table></div></section><aside><div class="row" style="align-items:center"><h2 style="font-size:18px">'+esc(s[0])+'</h2><span class="st '+sel.st+'">'+stText[sel.st]+'</span></div><p class="small muted">'+esc(s[1])+' · '+t.dischargedOn+' '+sel.date+'</p>';
@@ -481,7 +589,7 @@ document.addEventListener("click", function(e){
   else if(a==="lang") set({lang:S.lang==="he"?"en":"he"});
   else if(a==="go") set({screen:v});
   else if(a==="back") set({screen:BACK[S.screen]||"home"});
-  else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false});
+  else if(a==="start") set({flow:v,screen:"scan",planned:false,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",consent:true,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false,howto:"",jump:false,ddDone:{}});
   else if(a==="advBtl"){ if(S.btl<BTLK.length-1) set({btl:S.btl+1}); }
   else if(a==="fuEdit") set({fuEdit:+v,fuDay:null,fuTime:null});
   else if(a==="fuDay") set({fuDay:v});
@@ -490,6 +598,9 @@ document.addEventListener("click", function(e){
   else if(a==="fuSave"){ var it=data(flow,S.lang).fuItems[S.fuEdit], cur=fuCurrent(it,S.fuEdit), o={}; for(var k in S.fuOverride) o[k]=S.fuOverride[k]; var n={iso:S.fuDay||cur.iso,time:S.fuTime||cur.time}; if(n.iso!==it.iso||n.time!==it.time) o[S.fuEdit]=n; else delete o[S.fuEdit]; set({fuOverride:o,fuEdit:-1,fuDay:null,fuTime:null}); }
   else if(a==="capture"){ set({screen:"reading"}); setTimeout(function(){ if(S.screen==="reading"){ if(S.corrRetake) set({screen:"review",corrRetake:false,corr:"noted",corrNote:S.corrText,corrRetook:true}); else set({screen:"review"}); } },2200); }
   else if(a==="nurse") set({nurseAsked:true});
+  else if(a==="howto") set({howto:S.howto===v?"":v});
+  else if(a==="jump") set({jump:!S.jump,howto:""});
+  else if(a==="ddDone"){ var o2={}; for(var k2 in S.ddDone) o2[k2]=1; o2[v]=1; set({ddDone:o2,howto:""}); }
   else if(a==="corrOpen"){ set({corr:"edit",corrText:""}); var c=document.getElementById("corrCard"); if(c){ c.scrollIntoView({block:"start"}); } }
   else if(a==="corrEx") set({corrText:v});
   else if(a==="corrCancel") set({corr:""});
@@ -504,7 +615,7 @@ document.addEventListener("click", function(e){
   else if(a==="adv17"){ if(S.t17<K17[flow].length-1) set({t17:S.t17+1}); }
   else if(a==="slot") set({slot:+v});
   else if(a==="book"){ if(S.slot>=0) set({t17:S.t17+1}); }
-  else if(a==="advRx"){ if(S.rx<KRX.length-1) set({rx:S.rx+1}); }
+  else if(a==="advRx"){ if(S.rx<KRX[flow].length-1) set({rx:S.rx+1}); }
   else if(a==="deliv") set({delivery:v});
   else if(a==="advFu"){ if(S.fu<KFU.length-1) set({fu:S.fu+1}); }
   else if(a==="filter") set({hFilter:v});
