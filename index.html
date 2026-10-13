@@ -13,6 +13,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .topbar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 16px;background:#FFFFFF;border-bottom:1px solid var(--line)}
 .seg{display:flex;border:1px solid var(--line2);border-radius:22px;overflow:hidden}
 .seg button{min-height:40px;padding:0 16px;border:none;background:#FFFFFF;font-size:14px}
+@media (max-width:480px){.seg button{padding:0 10px;font-size:13px}}
 .seg button.on{background:var(--acc);color:#FFFFFF;font-weight:600}
 .pill-btn{min-height:40px;min-width:56px;border:1px solid var(--line2);border-radius:20px;background:#FFFFFF;font-size:14px;font-weight:500}
 .stage{display:flex;justify-content:center;padding:24px 12px 40px}
@@ -93,6 +94,7 @@ textarea{font:inherit;font-size:14px;padding:10px;border:1px solid var(--line2);
   <div class="seg" role="tablist">
     <button type="button" data-a="view" data-v="app" id="tabApp"></button>
     <button type="button" data-a="view" data-v="hosp" id="tabHosp"></button>
+    <button type="button" data-a="view" data-v="doc" id="tabDoc"></button>
   </div>
   <button type="button" class="pill-btn" data-a="lang" id="langBtn"></button>
 </div>
@@ -297,7 +299,7 @@ var BTLK=["found","gaps","waitDocs","gpLetter","waitSign","submit","waitBtl","co
 NEEDS.found=1; NEEDS.gaps=1; NEEDS.gpLetter=1; NEEDS.submit=1; DONE.committee=1;
 var BACK={gp:"plan",btl:"home",pick:"home",scan:"pick",reading:"pick",review:"pick",plan:"home",t17:"plan",rx:"plan",fu:"plan"};
 
-var S={howto:"",jump:false,ddDone:{},view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false};
+var S={dProf:"hosp",dFilter:"all",dSel:1,dSent:{},howto:"",jump:false,ddDone:{},view:"app",lang:"he",screen:"home",flow:null,planned:false,consent:true,nurseAsked:false,t17:0,rx:0,fu:0,slot:-1,delivery:"pickup",hFilter:"all",hSel:3,btl:0,fuEdit:-1,fuDay:null,fuTime:null,fuOverride:{},corr:"",corrText:"",corrFix:false,corrNote:"",corrRetake:false,corrRetook:false};
 
 var DOW={he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
 var MON={he:["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
@@ -570,13 +572,70 @@ function hospScreen(){
   return h;
 }
 
+Object.assign(T.he,{tabDoc:"מבט הרופא", dTitleH:"ד״ר [שם], פנימית ב׳, גבעון", dTitleP:"ד״ר [שם], מרפאה קרדיולוגית פרטית", dSub:"מה קרה עם ההמלצות שכתבת, לכל מטופל ששיתף איתך את התוכנית", profH:"רופא/ת בית חולים", profP:"מרפאה פרטית",
+  kPat:"מטופלים", kRec:"המלצות", kAct:"בוצעו או נקבעו", kOver:"באיחור", kIdle:"לא התחילו",
+  fAllD:"הכול", fOver:"באיחור", fIdle:"לא התחילו", fDone:"הושלמו",
+  cPat:"מטופל/ת", cSum:"סיכום", cAct:"בוצע", cOpen:"פתוח", cStat:"מצב", rowDone:"הושלם", rowTrack:"במסלול", rowOver:"יש באיחור", rowIdle:"לא התחיל/ה",
+  sDone:"בוצע", sBooked:"נקבע", sPend:"ממתין לאחרים", sOver:"באיחור", sNot:"לא התחיל", recsTitle:"ההמלצות שלך", kupaLbl:"קופה", sumOn:"סיכום מ-",
+  remind:"תזכורת למטופל/ת", noteGP:"עדכון לרופא/ת המשפחה", sentRem:"נשלחה תזכורת", sentGP:"נשלח עדכון לרופא המשפחה", consentDoc:"המטופל/ת בחר/ה לשתף איתך את ההתקדמות. רואים רק את מה שכתוב בסיכום שלך.", nothingOpen:"אין"});
+Object.assign(T.en,{tabDoc:"Doctor view", dTitleH:"Dr [name], Internal medicine B, Givon", dTitleP:"Dr [name], private cardiology clinic", dSub:"What happened to your recommendations, for every patient who shared their plan with you", profH:"Hospital physician", profP:"Private clinic",
+  kPat:"Patients", kRec:"Recommendations", kAct:"Done or booked", kOver:"Overdue", kIdle:"Not started",
+  fAllD:"All", fOver:"Overdue", fIdle:"Not started", fDone:"Complete",
+  cPat:"Patient", cSum:"Summary", cAct:"Actioned", cOpen:"Open item", cStat:"Status", rowDone:"Complete", rowTrack:"On track", rowOver:"Has overdue", rowIdle:"Not started",
+  sDone:"Done", sBooked:"Booked", sPend:"Waiting on others", sOver:"Overdue", sNot:"Not started", recsTitle:"Your recommendations", kupaLbl:"Kupa", sumOn:"Summary of ",
+  remind:"Remind patient", noteGP:"Note to family doctor", sentRem:"Reminder sent", sentGP:"Note sent to the family doctor", consentDoc:"The patient chose to share progress with you. You see only what your summary asked for.", nothingOpen:"None"});
+function I(he,en,st,dhe,den){return {he:he,en:en,st:st,dhe:dhe||"",den:den||""};}
+var DOCS={
+ hosp:[
+  {id:1,ini:"ר.כ.|R.C.",date:"8.10",kupa:"נווה|Naveh",items:[I("אוגמנטין 875 מ״ג","Augmentin 875 mg","done","נלקח בנווה פארם, 8.10","Collected at Naveh Pharm, 8 Oct"),I("אמלודיפין 10 מ״ג","Amlodipine 10 mg","done","נלקח, תזכורת יומית פעילה","Collected, daily reminder on"),I("הפסקת איבופרופן","Stop ibuprofen","done","המטופלת אישרה","Patient confirmed"),I("ביקור אצל רופא המשפחה תוך 7 ימים","Family doctor visit within 7 days","booked","15.10, 17:30","15 Oct, 17:30"),I("בדיקות דם (ספירה, CRP) בעוד שבוע","Blood tests (CBC, CRP) in 1 week","booked","18.10, 07:45","18 Oct, 07:45"),I("צילום חזה בעוד 6 שבועות","Chest X-ray in 6 weeks","booked","23.11","23 Nov"),I("מרפאת פנימית בעוד 4 שבועות","Internal medicine clinic in 4 weeks","pend","טופס 17 נשלח לנווה, ממתין לאישור","Tofes 17 sent to Naveh, awaiting approval")]},
+  {id:2,ini:"א.ש.|A.S.",date:"7.10",kupa:"נווה|Naveh",items:[I("אנטיביוטיקה ל-7 ימים","Antibiotics for 7 days","not","",""),I("ביקור אצל רופא המשפחה תוך 7 ימים","Family doctor visit within 7 days","not","",""),I("בדיקות דם בעוד שבוע","Blood tests in 1 week","not","",""),I("מרפאת פנימית בעוד חודש","Internal medicine clinic in 1 month","not","","")]},
+  {id:3,ini:"י.פ.|Y.P.",date:"4.10",kupa:"גפן|Gefen",items:[I("תרופות בשחרור","Discharge medication","done","נלקחו, 4.10","Collected, 4 Oct"),I("ביקור אצל רופא המשפחה","Family doctor visit","done","9.10","9 Oct"),I("בדיקות דם בעוד שבוע","Blood tests in 1 week","over","התור ב-11.10 הוחמץ","Missed the 11 Oct appointment"),I("מרפאת פנימית בעוד 4 שבועות","Internal medicine clinic in 4 weeks","pend","טופס 17 נשלח לגפן","Tofes 17 sent to Gefen")]},
+  {id:4,ini:"ת.ח.|T.H.",date:"6.10",kupa:"נווה|Naveh",items:[I("תרופות בשחרור","Discharge medication","done","נלקחו, 6.10","Collected, 6 Oct"),I("ביקור אצל רופא המשפחה","Family doctor visit","done","10.10","10 Oct"),I("בדיקות דם בעוד שבוע","Blood tests in 1 week","booked","14.10","14 Oct"),I("מרפאת פנימית בעוד 3 שבועות","Internal medicine clinic in 3 weeks","booked","27.10, 09:30","27 Oct, 09:30")]},
+  {id:5,ini:"ש.ג.|S.G.",date:"28.9",kupa:"גפן|Gefen",items:[I("תרופות בשחרור","Discharge medication","done","",""),I("ביקור אצל רופא המשפחה","Family doctor visit","done","2.10","2 Oct"),I("בדיקת פצע","Wound check","done","5.10","5 Oct"),I("מרפאה כירורגית","Surgical clinic","done","12.10","12 Oct")]}],
+ priv:[
+  {id:1,ini:"מ.ל.|M.L.",date:"6.10",kupa:"נווה|Naveh",items:[I("אטורבסטטין 20 מ״ג","Atorvastatin 20 mg","done","נלקח בנווה פארם במחיר קופה","Collected at Naveh Pharm, kupa price"),I("הפניה מרופא המשפחה לאקו והולטר","GP referral for echo and Holter","pend","מכתב לרופא המשפחה נשלח לפני 4 ימים, נשלחה תזכורת","Letter to GP sent 4 days ago, reminder sent"),I("אקו לב בחודש הקרוב","Echocardiogram within a month","not","ממתין להפניה","Waiting for referral"),I("הולטר 24 שעות בחודש הקרוב","24-hour Holter within a month","not","ממתין להפניה","Waiting for referral"),I("פרופיל שומנים בעוד שבוע","Lipid profile in 1 week","booked","19.10, 07:45","19 Oct, 07:45"),I("מעקב אצלך בעוד 3 חודשים","Follow-up with you in 3 months","booked","תזכורת לקבוע בינואר","Reminder to book in January")]},
+  {id:2,ini:"נ.ע.|N.A.",date:"3.10",kupa:"גפן|Gefen",items:[I("אטורבסטטין 20 מ״ג","Atorvastatin 20 mg","done","",""),I("אקו לב","Echocardiogram","booked","26.10, 08:30","26 Oct, 08:30"),I("הולטר 24 שעות","24-hour Holter","done","9.10","9 Oct"),I("פרופיל שומנים","Lipid profile","done","8.10","8 Oct"),I("מעקב אצלך בעוד 3 חודשים","Follow-up with you in 3 months","booked","תזכורת לקבוע בדצמבר","Reminder to book in December")]},
+  {id:3,ini:"ר.מ.|R.M.",date:"9.9",kupa:"נווה|Naveh",items:[I("אקו לב","Echocardiogram","done","22.9","22 Sep"),I("הולטר 24 שעות","24-hour Holter","over","תאריך היעד עבר לפני 5 ימים, לא נקבע","Deadline passed 5 days ago, not booked"),I("פרופיל שומנים","Lipid profile","done","16.9","16 Sep"),I("ביסופרולול 2.5 מ״ג","Bisoprolol 2.5 mg","done","",""),I("מעקב אצלך בעוד חודשיים","Follow-up with you in 2 months","booked","10.11","10 Nov")]},
+  {id:4,ini:"א.ק.|E.K.",date:"28.9",kupa:"גפן|Gefen",items:[I("מבחן מאמץ","Exercise stress test","not","",""),I("פרופיל שומנים","Lipid profile","not","",""),I("אטורבסטטין 40 מ״ג","Atorvastatin 40 mg","not","",""),I("מעקב אצלך בעוד חודש","Follow-up with you in 1 month","not","","")]},
+  {id:5,ini:"ג.ס.|G.S.",date:"15.9",kupa:"נווה|Naveh",items:[I("אקו לב","Echocardiogram","done","29.9","29 Sep"),I("פרופיל שומנים","Lipid profile","done","20.9","20 Sep"),I("אמלודיפין 5 מ״ג","Amlodipine 5 mg","done","",""),I("מעקב אצלך בעוד 6 שבועות","Follow-up with you in 6 weeks","booked","30.10","30 Oct")]}]
+};
+function dRowState(p){ var n=p.items.length, act=p.items.filter(function(i){return i.st==="done"||i.st==="booked";}).length, over=p.items.some(function(i){return i.st==="over";}), idle=p.items.every(function(i){return i.st==="not";});
+  return {n:n,act:act,state: idle?"idle":over?"over":act===n?"done":"track"}; }
+function docScreen(){
+  var t=T[S.lang], he=S.lang==="he", L=he?0:1, list=DOCS[S.dProf];
+  var stTxt={done:t.sDone,booked:t.sBooked,pend:t.sPend,over:t.sOver,not:t.sNot}, stCls={done:"done",booked:"track",pend:"wait",over:"call",not:"wait"};
+  var rowTxt={done:t.rowDone,track:t.rowTrack,over:t.rowOver,idle:t.rowIdle}, rowCls={done:"done",track:"track",over:"call",idle:"call"};
+  var totR=0,totA=0,nOver=0,nIdle=0; list.forEach(function(p){var r=dRowState(p); totR+=r.n; totA+=r.act; nOver+=p.items.filter(function(i){return i.st==="over";}).length; if(r.state==="idle") nIdle++;});
+  var h='<div class="hosp"><header style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px"><div style="display:flex;flex-direction:column;gap:4px"><h1 style="font-size:26px">'+(S.dProf==="hosp"?t.dTitleH:t.dTitleP)+'</h1><p class="muted">'+t.dSub+'</p></div><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><nav class="filters">';
+  [["hosp",t.profH],["priv",t.profP]].forEach(function(o){h+='<button type="button" data-a="dProf" data-v="'+o[0]+'" class="'+(S.dProf===o[0]?'on':'')+'">'+o[1]+'</button>';});
+  h+='</nav><span class="st wait">'+t.sample+'</span></div></header><div class="kpis">';
+  [[t.kPat,list.length,"#1C1F1D"],[t.kRec,totR,"#1C1F1D"],[t.kAct,Math.round(totA/totR*100)+'%',"#0B5552"],[t.kOver,nOver,"#A3361B"],[t.kIdle,nIdle,"#8A3F06"]].forEach(function(k){h+='<div class="kpi"><span class="small muted">'+k[0]+'</span><b style="color:'+k[2]+'">'+k[1]+'</b></div>';});
+  h+='</div><nav class="filters">';
+  var cnt={over:0,idle:0,done:0}; list.forEach(function(p){var st=dRowState(p).state; if(cnt[st]!==undefined) cnt[st]++;});
+  [["all",t.fAllD+" ("+list.length+")"],["over",t.fOver+" ("+cnt.over+")"],["idle",t.fIdle+" ("+cnt.idle+")"],["done",t.fDone+" ("+cnt.done+")"]].forEach(function(f){h+='<button type="button" data-a="dFilter" data-v="'+f[0]+'" class="'+(S.dFilter===f[0]?'on':'')+'">'+f[1]+'</button>';});
+  h+='</nav><div class="split"><section class="tablebox"><div class="scroll"><table><thead><tr><th>'+t.cPat+'</th><th>'+t.cSum+'</th><th>'+t.cAct+'</th><th>'+t.cOpen+'</th><th>'+t.cStat+'</th><th>'+t.colAction+'</th></tr></thead><tbody>';
+  list.filter(function(p){return S.dFilter==="all"||dRowState(p).state===S.dFilter;}).forEach(function(p){
+    var r=dRowState(p), pct=Math.round(r.act/r.n*100), open=p.items.filter(function(i){return i.st==="over";})[0]||p.items.filter(function(i){return i.st!=="done"&&i.st!=="booked";})[0];
+    h+='<tr class="'+(p.id===S.dSel?'sel':'')+'"><td><button type="button" class="namebtn" data-a="dsel" data-v="'+p.id+'">'+esc(p.ini.split("|")[L])+'</button><div class="small muted">'+esc(p.kupa.split("|")[L])+'</div></td><td>'+p.date+'</td><td><span class="minibar"><i style="width:'+pct+'%"></i></span> <span class="small">'+r.act+'/'+r.n+'</span></td><td>'+(open?esc(he?open.he:open.en)+(open.st==="over"?' <span class="tag stop">'+t.sOver+'</span>':''):'<span class="muted">'+t.nothingOpen+'</span>')+'</td><td><span class="st '+rowCls[r.state]+'">'+rowTxt[r.state]+'</span></td><td><button type="button" class="smallbtn'+(r.state==="over"||r.state==="idle"?' go':'')+'" data-a="dsel" data-v="'+p.id+'">'+t.view+'</button></td></tr>';
+  });
+  var sel=list.filter(function(p){return p.id===S.dSel;})[0]||list[0], rs=dRowState(sel);
+  h+='</tbody></table></div></section><aside><div class="row" style="align-items:center"><h2 style="font-size:18px">'+esc(sel.ini.split("|")[L])+'</h2><span class="st '+rowCls[rs.state]+'">'+rowTxt[rs.state]+'</span></div><p class="small muted">'+t.kupaLbl+': '+esc(sel.kupa.split("|")[L])+' · '+t.sumOn+sel.date+' · '+rs.act+'/'+rs.n+' '+t.cAct.toLowerCase()+'</p>';
+  h+='<div><span class="small" style="font-weight:600">'+t.recsTitle+'</span>';
+  sel.items.forEach(function(i){var d=he?i.dhe:i.den; h+='<div class="field" style="gap:4px"><span class="row" style="align-items:center;gap:8px"><span style="font-size:14px;color:#1C1F1D;font-weight:500">'+esc(he?i.he:i.en)+'</span><span class="st '+stCls[i.st]+'" style="flex-shrink:0">'+stTxt[i.st]+'</span></span>'+(d?'<span class="small muted">'+esc(d)+'</span>':'')+'</div>';});
+  h+='</div>';
+  var k=S.dProf+sel.id;
+  h+='<div style="display:flex;flex-wrap:wrap;gap:8px">'+(S.dSent[k+"rem"]?'<div class="okbox" style="flex:1 1 120px;font-size:14px">'+t.sentRem+'</div>':'<button type="button" class="primary" data-a="dSend" data-v="rem" style="flex:1 1 120px;min-height:44px;font-size:14px">'+t.remind+'</button>')+(S.dSent[k+"gp"]?'<div class="okbox" style="flex:1 1 120px;font-size:14px">'+t.sentGP+'</div>':'<button type="button" class="secondary" data-a="dSend" data-v="gp" style="flex:1 1 120px;min-height:44px;font-size:14px">'+t.noteGP+'</button>')+'</div>';
+  h+='<p class="small muted" style="line-height:1.5">'+t.consentDoc+'</p></aside></div></div>';
+  return h;
+}
+
 function render(){
   var t=T[S.lang];
   document.documentElement.lang=S.lang; document.documentElement.dir=S.lang==="he"?"rtl":"ltr";
-  document.getElementById("tabApp").textContent=t.tabApp; document.getElementById("tabHosp").textContent=t.tabHosp;
+  document.getElementById("tabApp").textContent=t.tabApp; document.getElementById("tabHosp").textContent=t.tabHosp; document.getElementById("tabDoc").textContent=t.tabDoc; document.getElementById("tabDoc").className=S.view==="doc"?"on":"";
   document.getElementById("tabApp").className=S.view==="app"?"on":""; document.getElementById("tabHosp").className=S.view==="hosp"?"on":"";
   document.getElementById("langBtn").textContent=t.toggle; document.getElementById("footnote").textContent=t.foot;
-  document.getElementById("root").innerHTML = S.view==="app" ? appScreen() : hospScreen();
+  document.getElementById("root").innerHTML = S.view==="app" ? appScreen() : S.view==="doc" ? docScreen() : hospScreen();
 }
 
 function set(p){ for(var k in p) S[k]=p[k]; render(); }
@@ -620,12 +679,17 @@ document.addEventListener("click", function(e){
   else if(a==="advFu"){ if(S.fu<KFU.length-1) set({fu:S.fu+1}); }
   else if(a==="filter") set({hFilter:v});
   else if(a==="hsel") set({hSel:+v});
+  else if(a==="dProf") set({dProf:v,dFilter:"all",dSel:1});
+  else if(a==="dFilter") set({dFilter:v});
+  else if(a==="dsel") set({dSel:+v});
+  else if(a==="dSend"){ var o3={}; for(var k3 in S.dSent) o3[k3]=S.dSent[k3]; o3[S.dProf+S.dSel+v]=1; set({dSent:o3}); }
 });
 document.addEventListener("input", function(e){ if(e.target.getAttribute("data-in")==="corr") S.corrText=e.target.value; });
 document.addEventListener("change", function(e){ if(e.target.getAttribute("data-a")==="consent") set({consent:e.target.checked}); });
 (function(){
   var q=(location.search+location.hash).toLowerCase();
   if(/hosp|hospital/.test(q)) S.view="hosp";
+  if(/[#&?]doc(tor)?\b/.test(q)) S.view="doc";
   if(/lang=en|[#&?]en\b/.test(q)) S.lang="en";
 })();
 render();
