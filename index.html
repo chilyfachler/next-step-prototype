@@ -241,8 +241,8 @@ function data0(flow, lang){
     t17Fields:[ [he?"שירות":"Service", he?"מרפאת פנימית, מרכז רפואי גבעון":"Internal medicine clinic, Givon Medical Center"], [he?"רופא מפנה":"Referring doctor", he?"ד״ר [שם], פנימית ב׳":"Dr [name], internal medicine"], [he?"מועד מומלץ":"Recommended timing", he?"בעוד 4 שבועות":"In 4 weeks"], [he?"מצורף":"Attached", he?"מכתב שחרור.pdf":"Discharge letter.pdf"] ],
     slotsWhere: he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon",
     slots: he?["יום ב׳, 9 בנובמבר · 09:30","יום ד׳, 11 בנובמבר · 14:00","יום א׳, 15 בנובמבר · 11:15"]:["Mon 9 Nov · 09:30","Wed 11 Nov · 14:00","Sun 15 Nov · 11:15"],
-    rxReason: he?"המרשם מבית החולים מכובד בבתי המרקחת של נווה במחיר קופה, אז אין צורך לחכות לרופא המשפחה. בבתי מרקחת אחרים, כמו פארם-טוב, משלמים מחיר מלא.":"Your hospital prescription is honoured at Naveh pharmacies at the kupa price, so you do not need to wait for your GP. At other pharmacies, such as PharmTov, you pay full price.",
-    rxGpNote: he?"עדכנו את רופא המשפחה כדי שהתרופות יתווספו לתיק.":"We let your GP know, so the medications are added to your file.",
+    rxReason: he?"בית החולים נתן תרופות לשלושה ימים בלבד. להמשך הטיפול רופא המשפחה צריך להוציא מרשם קופה חדש, אחרת לא תקבלו את התרופות במחיר קופה בהמשך.":"The hospital gave you 3 days of medication only. To continue, your family doctor needs to reissue it as a kupa prescription.",
+    rxGpNote: he?"המרשם של רופא המשפחה נמצא בתיק בקופה, כך שחידושים יעברו דרכו.":"The prescription is now in your kupa file, so renewals go through your family doctor.",
     deadExtra:[{k:"clinic",due:"2026-11-08",name:he?"מרפאת פנימית, גבעון":"Internal medicine clinic, Givon",t17:true}],
     t17Code:{from:he?"קוד במכתב השחרור: אין":"Code on the discharge letter: none", note:"", to:he?"הותאם לקוד נווה [N-2140] · מרפאת פנימית, ביקור מעקב":"Matched to Naveh code [N-2140] · Internal medicine clinic, follow-up visit"},
     t17Purpose: he?"ביקור במרפאה (מעקב אחרי אשפוז)":"Clinic visit (follow-up after admission)", erNote:true,
@@ -293,7 +293,7 @@ var ROWS = [
 ];
 
 var K17={dis:["approve","waitKupa","slots","booked"],ext:["letter","waitGP","approve","waitKupa","slots","booked"]};
-var KRX={dis:["order","ordered"],ext:["order","ordered"]}, KFU=["slots","booked"];
+var KRX={dis:["req","wait","order","ordered"],ext:["order","ordered"]}, KFU=["slots","booked"];
 var NEEDS={letter:1,approve:1,slots:1,req:1,order:1}, DONE={booked:1,ordered:1};
 var BTLK=["found","gaps","waitDocs","gpLetter","waitSign","submit","waitBtl","committee"];
 NEEDS.found=1; NEEDS.gaps=1; NEEDS.gpLetter=1; NEEDS.submit=1; DONE.committee=1;
@@ -366,9 +366,9 @@ function gpSum(flow,t,he,d){
   var k17=K17[flow][S.t17], rx=S.rx>=1, fu=S.fu>=1, f=function(x){return fixEcho(x,he);};
   if(flow==="dis") return {
     head: he?"רבקה כהן · שוחררה מגבעון, פנימית ב׳, 8.10":"Rivka Cohen · discharged from Givon, internal medicine, 8 Oct",
-    needs:[ he?"לבדוק את שינוי המינון של אמלודיפין: מ-5 מ״ג ל-10 מ״ג":"Review amlodipine change: 5 mg to 10 mg once a day", he?"איבופרופן הופסק עד הביקור אצלך: להחליט אם לחדש":"Ibuprofen stopped until the GP visit: decide whether to restart", fu?null:(he?"ביקור אצלך תוך 7 ימים (עדיין לא נקבע)":"GP visit within 7 days (not booked yet)") ],
+    needs:[ S.rx<2?(he?"להוציא מרשם קופה לאוגמנטין 875 מ״ג ולאמלודיפין 10 מ״ג (בית החולים נתן ל-3 ימים)":"Reissue as kupa prescriptions: Augmentin 875 mg and amlodipine 10 mg (hospital supplied 3 days)"):null, he?"לבדוק את שינוי המינון של אמלודיפין: מ-5 מ״ג ל-10 מ״ג":"Review amlodipine change: 5 mg to 10 mg once a day", he?"איבופרופן הופסק עד הביקור אצלך: להחליט אם לחדש":"Ibuprofen stopped until the GP visit: decide whether to restart", fu?null:(he?"ביקור אצלך תוך 7 ימים (עדיין לא נקבע)":"GP visit within 7 days (not booked yet)") ],
     done:[ S.t17>=1?(k17==="booked"?(he?"טופס 17 אושר ונקבע תור למרפאת פנימית, גבעון":"Tofes 17 approved, internal medicine clinic booked at Givon"):(he?"נשלחה בקשה לטופס 17 למרפאת פנימית, גבעון":"Tofes 17 requested for the Givon internal medicine clinic")):null,
-      rx?(he?"התרופות נלקחו בנווה פארם במחיר קופה (אוגמנטין, אמלודיפין 10 מ״ג)":"Medications collected at Naveh Pharm at kupa price (Augmentin, amlodipine 10 mg)"):null,
+      S.rx>=3?(he?"התרופות נלקחו בנווה פארם במחיר קופה (אוגמנטין, אמלודיפין 10 מ״ג)":"Medications collected at Naveh Pharm at kupa price (Augmentin, amlodipine 10 mg)"):null,
       fu?(he?"נקבעו: ביקור אצלך, בדיקות דם וצילום חזה":"Booked: visit with you, blood tests and chest X-ray"):null ],
     fyi:[ he?"סימני אזהרה שנמסרו למטופלת: חום מעל 38.5 יותר מיומיים, קוצר נשימה או כאב בחזה":"Warning signs given to the patient: fever over 38.5 for more than 2 days, shortness of breath or chest pain" ] };
   return {
@@ -514,8 +514,9 @@ function appScreen(){
     } else if(kRx==="wait"){
       h+='<div class="card"><span style="font-size:18px;font-weight:600">'+t.rxWaitTitle+'</span><span class="muted">'+t.waitGPBody+'</span></div><button type="button" class="demo" data-a="advRx">'+t.simRx+'</button>';
     } else if(kRx==="order"){
-      h+='<div class="okbox"><span class="small">'+t.rxTodayTitle+'</span><span class="head">'+t.rxTodayYes+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.rxReason)+'</span></div>';
-      if(d.stopNote) h+='<div class="card" style="font-size:14px;font-weight:500">'+esc(d.stopNote)+'</div>';
+      var viaGP=KRX[flow][0]==="req";
+      if(viaGP) h+='<h1 style="font-size:19px">'+t.orderTitle+'</h1>'; else h+='<div class="okbox"><span class="small">'+t.rxTodayTitle+'</span><span class="head">'+t.rxTodayYes+'</span><span style="font-size:14px;line-height:1.5">'+esc(d.rxReason)+'</span></div>';
+      if(d.stopNote && !viaGP) h+='<div class="card" style="font-size:14px;font-weight:500">'+esc(d.stopNote)+'</div>';
       h+='<button type="button" class="opt'+(S.delivery==="pickup"?' on':'')+'" data-a="deliv" data-v="pickup"><span style="font-size:16px;font-weight:600">'+t.pickupKupa+'</span><span class="small muted">'+t.pickupKupaSub+'</span></button>';
       h+='<button type="button" class="opt'+(S.delivery==="delivery"?' on':'')+'" data-a="deliv" data-v="delivery"><span style="font-size:16px;font-weight:600">'+t.delivery+'</span><span class="small muted">'+t.deliverySub+'</span></button>';
       h+='<button type="button" class="primary" data-a="advRx">'+t.approveOrder+'</button>';
